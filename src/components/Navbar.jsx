@@ -3,6 +3,7 @@ import { icons } from './icons';
 import NavLink from './NavLink';
 import MobileNavLink from './MobileNavLink';
 import ThemeToggle from './ThemeToggle';
+import logo from '../assets/logo2.png'; // Adjust the relative path if needed
 
 
 export default function Navbar() {
@@ -23,7 +24,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <a href="#" className="flex items-center">
               <img 
-                src="src/assets/logo2.png" 
+                src={logo} 
                 alt="ATOM Logo" 
                 className="h-15 bg-transparent dark:invert" 
               />
