@@ -1,5 +1,5 @@
 import React from 'react';
-import { icons } from './icons';
+import { icons } from './header/icons';
 import atomLogo from '../assets/logo2.png';
 
 export default function Footer() {
