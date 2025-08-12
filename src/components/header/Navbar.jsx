@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { icons } from './icons';
 import NavLink from './NavLink';
 import MobileNavLink from './MobileNavLink';
@@ -7,13 +8,15 @@ import logo from '../../assets/Logo2.png';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const navLinks = [
-    { name: 'Chatbot', icon: 'MessageSquare', href: '#' },
-    { name: 'Therapists', icon: 'Users', href: '#' },
-    { name: 'Depression Test', icon: 'ClipboardCheck', href: '#' },
-    { name: 'Your Zone', icon: 'User', href: '#' },
-    { name: 'Connect', icon: 'Link', href: '#' },
+    { name: 'Home', icon: 'Home', href: '/' },
+    { name: 'Chatbot', icon: 'MessageSquare', href: '/chatbot' },
+    { name: 'Therapists', icon: 'Users', href: '/therapists' },
+    { name: 'Depression Test', icon: 'ClipboardCheck', href: '/depression-test' },
+    { name: 'Your Zone', icon: 'User', href: '/your-zone' },
+    { name: 'Connect', icon: 'Link', href: '/connect' },
   ];
 
   return (
@@ -21,18 +24,18 @@ export default function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <a href="#" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img 
                 src={logo} 
                 alt="ATOM Logo" 
                 className="h-15 bg-transparent dark:invert" 
               />
-            </a>
+            </Link>
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <NavLink key={link.name} {...link} />
+              <NavLink key={link.name} {...link} isActive={location.pathname === link.href} />
             ))}
           </nav>
 
@@ -56,11 +59,11 @@ export default function Navbar() {
         <div className="md:hidden bg-white dark:bg-black border-t border-gray-200/50 dark:border-gray-800/50">
           <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
             {navLinks.map((link) => (
-              <MobileNavLink key={link.name} {...link} />
+              <MobileNavLink key={link.name} {...link} isActive={location.pathname === link.href} />
             ))}
           </div>
           <div className="border-t border-gray-200/50 dark:border-gray-800/50 px-4 py-3">
-             <button className="w-full flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300/50 h-10 px-4 py-2 bg-white/60 hover:bg-gray-100/60 dark:bg-black/60 dark:hover:bg-gray-800/60 text-gray-900 dark:text-gray-100">
+             <button className="w-full flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300/50 dark:border-gray-700/50 h-10 px-4 py-2 bg-white/60 hover:bg-gray-100/60 dark:bg-black/60 dark:hover:bg-gray-800/60 text-gray-900 dark:text-gray-100">
               Login / Sign Up
             </button>
           </div>
