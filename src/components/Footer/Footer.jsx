@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { icons } from '../header/icons';
 import atomLogo from '../../assets/logo2.png';
 
 export default function Footer() {
     const footerLinks = {
         "Quick Links": [ 
-            { name: "Chatbot", href: "#" }, 
-            { name: "Depression Test", href: "#" }, 
-            { name: "Therapists", href: "#" }, 
-            { name: "Stories", href: "#" }, 
+            { name: "Chatbot", href: "/chatbot" }, 
+            { name: "Depression Test", href: "/depression-test" }, 
+            { name: "Therapists", href: "/therapists" }, 
+            { name: "Stories", href: "/connect" }, 
         ],
         "Support": [ 
             { name: "FAQs", href: "#" }, 
@@ -29,13 +30,13 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row text-center md:text-left justify-between items-center md:items-start gap-8">
                     {/* Logo */}
                     <div className="w-full md:w-auto mb-8 md:mb-0">
-                         <a href="#" className="inline-block">
+                         <Link to="/" className="inline-block">
                             <img 
                                 src={atomLogo}
                                 alt="ATOM Logo" 
                                 className="w-1/2 dark:invert mx-auto md:mx-0" 
                             />
-                        </a>
+                        </Link>
                     </div>
                     
                     {/* Links */}
@@ -46,9 +47,15 @@ export default function Footer() {
                                 <ul className="mt-4 space-y-4">
                                     {links.map(link => (
                                         <li key={link.name}>
-                                            <a href={link.href} className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                                                {link.name}
-                                            </a>
+                                            {link.href.startsWith('/') ? (
+                                                <Link to={link.href} className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200">
+                                                    {link.name}
+                                                </Link>
+                                            ) : (
+                                                <a href={link.href} className="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200">
+                                                    {link.name}
+                                                </a>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
@@ -63,7 +70,7 @@ export default function Footer() {
                           {socialLinks.map(link => {
                               const IconComponent = icons[link.icon];
                               return (
-                                  <a key={link.name} href={link.href} className={`text-gray-400 dark:text-gray-500 ${link.colorClass} transition-colors`}>
+                                  <a key={link.name} href={link.href} className={`text-gray-400 dark:text-gray-500 ${link.colorClass} transition-colors duration-200`}>
                                       <span className="sr-only">{link.name}</span>
                                       <IconComponent />
                                   </a>
