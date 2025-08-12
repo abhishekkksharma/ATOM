@@ -4,7 +4,7 @@ import { icons } from './icons';
 import NavLink from './NavLink';
 import MobileNavLink from './MobileNavLink';
 import ThemeToggle from './ThemeToggle';
-import logo from '../../assets/Logo2.png';
+import logo from '../../assets/logo2.png';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
