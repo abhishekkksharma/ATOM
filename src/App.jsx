@@ -8,6 +8,7 @@ import Therapists from './pages/Therapists';
 import DepressionTest from './pages/DepressionTest';
 import YourZone from './pages/YourZone';
 import Connect from './pages/Connect';
+import About from './pages/About';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/depression-test" element={<DepressionTest />} />
           <Route path="/your-zone" element={<YourZone />} />
           <Route path="/connect" element={<Connect />} />
+          <Route path="/about" element={<About />} />
           {/* Redirect any unknown routes to home page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

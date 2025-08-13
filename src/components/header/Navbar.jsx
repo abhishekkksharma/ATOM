@@ -17,6 +17,7 @@ export default function Navbar() {
     { name: 'Depression Test', icon: 'ClipboardCheck', href: '/depression-test' },
     { name: 'Your Zone', icon: 'User', href: '/your-zone' },
     { name: 'Connect', icon: 'Link', href: '/connect' },
+    { name: 'About', icon: 'Link', href: '/About' },
   ];
 
   return (
