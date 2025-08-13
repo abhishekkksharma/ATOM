@@ -1,4 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import B from '../assets/homepageIcons/B.png';
+import C from '../assets/homepageIcons/C.png';
+import D from '../assets/homepageIcons/D.png';
+
+// A simple checkmark icon component, needed for the new card
+const CheckmarkIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24"
+    fill="currentColor"
+    className="w-5 h-5 text-white bg-blue-500 rounded-full p-0.5"
+  >
+    <path
+      fillRule="evenodd"
+      d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 
 export default function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,13 +36,13 @@ export default function App() {
     // Main container is now the relative parent for the SVG
     <div className="lg:mt-20 sm:mt-10 bg-transparent transition-all pt-0 duration-500 flex items-center justify-center p-4 overflow-hidden relative">
       
-      {/* Animated Background Line - MOVED OUTSIDE of max-w-6xl */}
+      {/* Animated Background Line */}
       <div className="absolute inset-0 pointer-events-none">
         <svg
           className="w-full h-full opacity-30"
           viewBox="0 0 800 400"
           fill="none"
-          preserveAspectRatio="none" // Add this attribute
+          preserveAspectRatio="none"
         >
           <path
             d="M0,200 Q200,150 400,200 T800,200"
@@ -46,13 +66,10 @@ export default function App() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
           <p className="text-lg mb-4 font-medium text-black dark:text-white ">
-            <span className='font-bold text-xl text-blue-800'>A</span>ct, <span className='font-bold text-xl text-blue-800'>T</span>hink, <span className='font-bold text-xl text-blue-800'>O</span>vercome, <span className='font-bold text-xl text-blue-800'>M</span>aintain
+            <span className='font-bold text-xl text-blue-800 '>A</span>ct <span className='font-bold text-xl text-blue-800'>T</span>hink <span className='font-bold text-xl text-blue-800'>O</span>vercome <span className='font-bold text-xl text-blue-800'>M</span>aintain
           </p>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-gray-900 via-blue-800 to-gray-800 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-violet-600 dark:to-indigo-600 dark:bg-clip-text dark:text-transparent">
             Lets get started with ATOM
-            <span className="block bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-blue-300">
-              
-            </span>
           </h1>
         </div>
 
@@ -61,7 +78,7 @@ export default function App() {
           
           {/* Card 1 */}
           <div
-            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } -rotate-12 hover:rotate-0 hover:scale-105`}
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '400ms' }}
           >
             <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
@@ -79,7 +96,7 @@ export default function App() {
 
           {/* Card 2 */}
           <div
-            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } rotate-6 hover:rotate-0 hover:scale-105`}
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '600ms' }}
           >
             <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
@@ -97,7 +114,7 @@ export default function App() {
 
           {/* Card 3 */}
           <div
-            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } -rotate-6 hover:rotate-0 hover:scale-105`}
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '800ms' }}
           >
             <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
@@ -113,24 +130,54 @@ export default function App() {
             </div>
           </div>
 
-          {/* Card 4 (Special) */}
+          {/* Card 4 (Content updated inside original frame) */}
           <div
-            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } rotate-12 hover:rotate-0 hover:scale-105`}
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '1000ms' }}
           >
-            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] border-2 border-dashed border-yellow-500 bg-white/40 dark:border-yellow-400 dark:bg-gray-800">
-              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
-                🌱
-              </div>
-              <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Begin Your Journey
-              </h3>
-              <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
-                Start Today
-              </p>
-              <div className="mt-3 text-xs italic transition-colors duration-500 text-gray-500 dark:text-gray-400">
-                Let's Begin!
-              </div>
+            <div className="rounded-2xl min-w-[180px] p-2 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md bg-white/40 border-2 border-dashed border-yellow-500 dark:border-gray-100 dark:bg-gradient-to-r dark:from-slate-900 dark:via-slate-800 to-slate-700 dark:text-white text-center font-sans">
+                
+                {/* Avatar Section */}
+                <div className="relative flex justify-center items-center h-20 mb-2 -mx-2">
+                    {/* Bottom Row Avatars */}
+                    <div className="flex justify-center relative top-2">
+                    <img
+                        src={B}
+                        alt="Avatar B"
+                        className="w-15 h-15 bg-cover rounded-full border-4 border-white shadow-md z-10"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/F9D4D5/333333?text=B'; }}
+                    />
+                    <img
+                        src={C}
+                        alt="Avatar C"
+                        className="w-15 h-15 rounded-full border-4 border-white shadow-md -ml-4 z-10"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/C9E5FF/333333?text=C'; }}
+                    />
+                    <img
+                        src={D}
+                        alt="Avatar D"
+                        className="w-15 h-15 rounded-full border-4 border-white shadow-md -ml-4"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/FFF5C1/333333?text=D'; }}
+                    />
+                    </div>
+                </div>
+
+                {/* Text Content Section */}
+                <div className="text-gray-800 dark:text-white text-sm font-medium mb-3 ">
+                    <div className="flex justify-center items-center gap-1 flex-wrap">
+                    <span className="">We are</span>
+                    <span className="">together,</span>
+                    <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
+                        165K
+                    </span>
+                    </div>
+                    <span className=" text-sm">and more are with us!</span>
+                </div>
+
+                {/* Action Button Section */}
+                <button className="bg-blue-300/40 hover:bg-blue-400 hover:text-white text-blue-600 dark:text-white font-bold py-2 px-2 text-sm rounded-lg shadow-md transition-all duration-300">
+                    Invite friends!
+                </button>
             </div>
           </div>
 
@@ -150,6 +197,7 @@ export default function App() {
         </div>
       </div>
 
+
       <style jsx>{`
         @keyframes drawLine {
           to {
@@ -158,5 +206,6 @@ export default function App() {
         }
       `}</style>
     </div>
+    
   );
 }

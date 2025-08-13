@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 
-const MentalHealthHero = () => {
+// A simple checkmark icon component, needed for the new card
+const CheckmarkIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24"
+    fill="currentColor"
+    className="w-5 h-5 text-white bg-blue-500 rounded-full p-0.5"
+  >
+    <path
+      fillRule="evenodd"
+      d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+
+export default function App() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     // Trigger animations after component mounts
@@ -13,188 +29,155 @@ const MentalHealthHero = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const teamMembers = [
-    {
-      name: "Dr. Sarah Chen",
-      role: "Clinical Psychologist",
-      image: "👩‍⚕️",
-      tilt: "-rotate-12"
-    },
-    {
-      name: "Michael Torres",
-      role: "Therapist", 
-      image: "👨‍💼",
-      tilt: "rotate-6"
-    },
-    {
-      name: "Dr. Emily Watson",
-      role: "Psychiatrist",
-      image: "👩‍🔬",
-      tilt: "-rotate-6"
-    },
-    {
-      name: "Begin Your Journey",
-      role: "Start Today",
-      image: "🌱",
-      tilt: "rotate-12",
-      isSpecial: true
-    }
-  ];
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
-
   return (
-    <div className={`min-h-screen transition-all duration-500 flex items-center justify-center p-4 overflow-hidden relative ${
-      isDark 
-        ? 'bg-gray-900' 
-        : 'bg-gray-50'
-    }`}>
+    // Main container is now the relative parent for the SVG
+    <div className="lg:mt-20 sm:mt-10 bg-transparent transition-all pt-0 duration-500 flex items-center justify-center p-4 overflow-hidden relative">
       
-      {/* Circular Blue Background Effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large central blur */}
-        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-30 ${
-          isDark ? 'bg-blue-600' : 'bg-blue-400'
-        }`} />
-        
-        {/* Top right blur */}
-        <div className={`absolute -top-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-          isDark ? 'bg-cyan-500' : 'bg-cyan-400'
-        }`} />
-        
-        {/* Bottom left blur */}
-        <div className={`absolute -bottom-32 -left-32 w-72 h-72 rounded-full blur-3xl opacity-25 ${
-          isDark ? 'bg-blue-700' : 'bg-blue-500'
-        }`} />
-        
-        {/* Additional accent blurs */}
-        <div className={`absolute top-20 left-1/4 w-40 h-40 rounded-full blur-2xl opacity-15 ${
-          isDark ? 'bg-purple-600' : 'bg-purple-400'
-        }`} />
-        
-        <div className={`absolute bottom-20 right-1/4 w-48 h-48 rounded-full blur-2xl opacity-20 ${
-          isDark ? 'bg-indigo-600' : 'bg-indigo-400'
-        }`} />
+      {/* Animated Background Line */}
+      <div className="absolute inset-0 pointer-events-none">
+        <svg
+          className="w-full h-full opacity-30"
+          viewBox="0 0 800 400"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,200 Q200,150 400,200 T800,200"
+            strokeWidth="3"
+            fill="none"
+            className="stroke-blue-600 dark:stroke-blue-400 transition-all duration-3000 ease-out"
+            style={{
+              strokeDasharray: '1000',
+              strokeDashoffset: isVisible ? '0' : '1000',
+              animation: isVisible ? 'drawLine 2s ease-out forwards' : 'none'
+            }}
+          />
+        </svg>
       </div>
-      
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className={`fixed top-6 right-6 z-50 p-3 rounded-full transition-all duration-300 shadow-lg hover:scale-110 ${
-          isDark 
-            ? 'bg-white text-gray-900 hover:bg-gray-100' 
-            : 'bg-gray-900 text-white hover:bg-gray-800'
-        }`}
-      >
-        {isDark ? '☀️' : '🌙'}
-      </button>
 
+      {/* Content container remains constrained and centered */}
       <div className="max-w-6xl mx-auto text-center relative">
         
-        {/* Animated Background Line */}
-        <div className="absolute inset-0 pointer-events-none">
-          <svg 
-            className="w-full h-full opacity-30" 
-            viewBox="0 0 800 400" 
-            fill="none"
-          >
-            <path
-              d="M0,200 Q200,150 400,200 T800,200"
-              stroke={isDark ? "#60A5FA" : "#3B82F6"}
-              strokeWidth="3"
-              fill="none"
-              className={`transition-all duration-3000 ease-out`}
-              style={{
-                strokeDasharray: isVisible ? '0' : '1000',
-                strokeDashoffset: isVisible ? '0' : '1000',
-                animation: isVisible ? 'drawLine 2s ease-out forwards' : 'none'
-              }}
-            />
-          </svg>
-        </div>
-
         {/* Header Content */}
         <div className={`mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <p className={`text-lg mb-4 font-medium transition-all duration-500 ${
-            isDark 
-              ? 'bg-gradient-to-r from-blue-300 via-cyan-300 to-purple-300 bg-clip-text text-transparent'
-              : 'bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 bg-clip-text text-transparent'
-          }`}>
-            Meet the Caring Professionals
+          <p className="text-lg mb-4 font-medium text-black dark:text-white ">
+            <span className='font-bold text-xl text-blue-800'>A</span>ct, <span className='font-bold text-xl text-blue-800'>T</span>hink, <span className='font-bold text-xl text-blue-800'>O</span>vercome, <span className='font-bold text-xl text-blue-800'>M</span>aintain
           </p>
-          <h1 className={`text-4xl md:text-5xl font-bold leading-tight transition-all duration-500 ${
-            isDark 
-              ? 'bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent'
-              : 'bg-gradient-to-r from-gray-900 via-blue-800 to-gray-800 bg-clip-text text-transparent'
-          }`}>
-            Your Mental Health
-            <span className={`block transition-all duration-500 ${
-              isDark 
-                ? 'bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-transparent'
-                : 'bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent'
-            }`}>
-              Support Team
-            </span>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-gray-900 via-blue-800 to-gray-800 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-violet-600 dark:to-indigo-600 dark:bg-clip-text dark:text-transparent">
+            Lets get started with ATOM
           </h1>
         </div>
 
         {/* Team Cards */}
         <div className="relative flex flex-wrap justify-center items-center gap-8 mb-12">
-          {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              className={`relative transition-all duration-1000 ease-out ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 -translate-y-20'
-              } ${member.tilt} hover:rotate-0 hover:scale-105`}
-              style={{
-                transitionDelay: `${index * 200 + 400}ms`
-              }}
-            >
-              {/* Card */}
-              <div className={`
-                rounded-2xl p-6 shadow-xl hover:shadow-2xl 
-                transition-all duration-500 backdrop-blur-md
-                ${member.isSpecial 
-                  ? `border-2 border-dashed ${isDark ? 'border-yellow-400 bg-gray-800/40' : 'border-yellow-500 bg-white/40'}` 
-                  : isDark ? 'bg-gray-800/40 border border-gray-700/50' : 'bg-white/40 border border-gray-200/50'
-                }
-                min-w-[180px]
-              `}>
-                {/* Avatar */}
-                <div className={`w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 ${
-                  isDark ? 'bg-gray-700' : 'bg-gray-50'
-                }`}>
-                  {member.image}
-                </div>
-                
-                {/* Content */}
-                <h3 className={`font-semibold text-lg mb-1 transition-colors duration-500 ${
-                  isDark ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {member.name}
-                </h3>
-                <p className={`text-sm font-medium transition-colors duration-500 ${
-                  isDark ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                  {member.role}
-                </p>
-                
-                {member.isSpecial && (
-                  <div className={`mt-3 text-xs italic transition-colors duration-500 ${
-                    isDark ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
-                    Let's Begin!
-                  </div>
-                )}
+          
+          {/* Card 1 */}
+          <div
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
+            style={{ transitionDelay: '400ms' }}
+          >
+            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
+                👩‍⚕️
               </div>
+              <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
+                Dr. Sarah Chen
+              </h3>
+              <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
+                Clinical Psychologist
+              </p>
             </div>
-          ))}
+          </div>
+
+          {/* Card 2 */}
+          <div
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
+            style={{ transitionDelay: '600ms' }}
+          >
+            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
+                👨‍💼
+              </div>
+              <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
+                Michael Torres
+              </h3>
+              <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
+                Therapist
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
+            style={{ transitionDelay: '800ms' }}
+          >
+            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
+                👩‍🔬
+              </div>
+              <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
+                Dr. Emily Watson
+              </h3>
+              <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
+                Psychiatrist
+              </p>
+            </div>
+          </div>
+
+          {/* Card 4 (Content updated inside original frame) */}
+          <div
+            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
+            style={{ transitionDelay: '1000ms' }}
+          >
+            <div className="rounded-2xl min-w-[180px] p-2 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md bg-white/40 border-2 border-dashed border-yellow-500 dark:border-yellow-400 dark:bg-white text-center font-sans">
+                
+                {/* Avatar Section */}
+                <div className="relative flex justify-center items-center h-20 mb-2 -mx-2">
+                    {/* Bottom Row Avatars */}
+                    <div className="flex justify-center relative top-2">
+                    <img
+                        src={'https://placehold.co/80x80/F9D4D5/333333?text=B'}
+                        alt="Avatar B"
+                        className="w-15 h-15 bg-cover rounded-full border-4 border-white shadow-md z-10"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/F9D4D5/333333?text=B'; }}
+                    />
+                    <img
+                        src={'https://placehold.co/80x80/C9E5FF/333333?text=C'}
+                        alt="Avatar C"
+                        className="w-15 h-15 rounded-full border-4 border-white shadow-md -ml-4 z-10"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/C9E5FF/333333?text=C'; }}
+                    />
+                    <img
+                        src={'https://placehold.co/80x80/FFF5C1/333333?text=D'}
+                        alt="Avatar D"
+                        className="w-15 h-15 rounded-full border-4 border-white shadow-md -ml-4"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/80x80/FFF5C1/333333?text=D'; }}
+                    />
+                    </div>
+                </div>
+
+                {/* Text Content Section */}
+                <div className="text-gray-800 text-sm font-medium mb-3">
+                    <div className="flex justify-center items-center gap-1 flex-wrap">
+                    <span className="dark:text-black">Tim, Marie</span>
+                    <span className="dark:text-black">und</span>
+                    <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
+                        25.246
+                    </span>
+                    </div>
+                    <span className="dark:text-black text-sm">andere sind begeistert!</span>
+                </div>
+
+                {/* Action Button Section */}
+                <button className="bg-blue-300/40 hover:bg-blue-400 hover:text-white text-blue-600 font-bold py-2 px-2 text-sm rounded-lg shadow-md transition-all duration-300">
+                    Invite friends!
+                </button>
+            </div>
+          </div>
+
         </div>
 
         {/* CTA Button */}
@@ -202,20 +185,13 @@ const MentalHealthHero = () => {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '1200ms' }}>
-          <button className={`group inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 ${
-            isDark 
-              ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-500 hover:to-cyan-500'
-              : 'bg-gradient-to-r from-gray-900 to-gray-700 text-white hover:from-gray-800 hover:to-gray-600'
-          }`}>
+          <button className="group inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-blue-100/40 text-blue-800 border border-blue-300/10 dark:bg-gray-800/40 dark:border-gray-700/50 dark:text-white backdrop-blur-md">
             Start Your Journey
             <span className="group-hover:translate-x-1 transition-transform duration-200">
               →
             </span>
           </button>
         </div>
-
-        {/* Decorative Elements - Removed */}
-        
       </div>
 
       <style jsx>{`
@@ -226,7 +202,6 @@ const MentalHealthHero = () => {
         }
       `}</style>
     </div>
+    
   );
-};
-
-export default MentalHealthHero;
+}
