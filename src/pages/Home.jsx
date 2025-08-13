@@ -3,21 +3,6 @@ import B from '../assets/homepageIcons/B.png';
 import C from '../assets/homepageIcons/C.png';
 import D from '../assets/homepageIcons/D.png';
 
-// A simple checkmark icon component, needed for the new card
-const CheckmarkIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24"
-    fill="currentColor"
-    className="w-5 h-5 text-white bg-blue-500 rounded-full p-0.5"
-  >
-    <path
-      fillRule="evenodd"
-      d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 
 
 export default function App() {
@@ -34,30 +19,45 @@ export default function App() {
 
   return (
     // Main container is now the relative parent for the SVG
-    <div className="lg:mt-20 sm:mt-10 bg-transparent transition-all pt-0 duration-500 flex items-center justify-center p-4 overflow-hidden relative">
+    <div className="lg:mt-20 sm:mt-10 bg-transparent transition-all pt-0 duration-500 flex items-center justify-center p-4 overflow-hidden relative lg:pb-10 sm:pb-0">
       
-      {/* Animated Background Line */}
-      <div className="absolute inset-0 pointer-events-none">
-        <svg
-          className="w-full h-full opacity-30"
-          viewBox="0 0 800 400"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,200 Q200,150 400,200 T800,200"
-            strokeWidth="3"
+        <div className="absolute inset-0 pointer-events-none">
+          <svg
+            className="w-full h-full" // Opacity is now controlled by the elements themselves
+            viewBox="0 0 800 400"
             fill="none"
-            className="stroke-blue-600 dark:stroke-blue-400 transition-all duration-3000 ease-out"
-            style={{
-              strokeDasharray: isVisible ? '0' : '1000',
-              strokeDashoffset: isVisible ? '0' : '1000',
-              animation: isVisible ? 'drawLine 2s ease-out forwards' : 'none'
-            }}
-          />
-        </svg>
-      </div>
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg" // Added for SVG best practice
+          >
+            {/* Define the radial gradient inside a <defs> block.
+              This gradient will be used by the ellipse in dark mode.
+            */}
+            <defs>
+              <radialGradient id="blurGradient">
+                {/* Center of the gradient: a semi-transparent blue */}
+                <stop offset="0%" stopColor="rgba(37, 99, 235, 0.3)" />
+                {/* Edge of the gradient: fully transparent */}
+                <stop offset="100%" stopColor="rgba(37, 99, 235, 0)" />
+              </radialGradient>
+            </defs>
+                    
+            {/* This is the new circular blur.
+              - It's an ellipse centered in the viewbox.
+              - It's hidden by default and only shown in dark mode with "hidden dark:block".
+              - It uses the "blurGradient" we defined above.
+            */}
+            <ellipse
+              cx="400"
+              cy="200"
+              rx="400"
+              ry="200"
+              fill="url(#blurGradient)"
+              className="dark:block"
+            />
+          </svg>
+        </div>
 
+        
       {/* Content container remains constrained and centered */}
       <div className="max-w-6xl mx-auto text-center relative">
         
@@ -65,7 +65,7 @@ export default function App() {
         <div className={`mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <p className="text-lg mb-4 font-medium text-black dark:text-white ">
+          <p className="text-lg mb-4 font-medium text-black dark:text-white">
             <span className='font-bold text-xl text-blue-800 '>A</span>ct <span className='font-bold text-xl text-blue-800'>T</span>hink <span className='font-bold text-xl text-blue-800'>O</span>vercome <span className='font-bold text-xl text-blue-800'>M</span>aintain
           </p>
           <h1 className="text-4xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-gray-900 via-blue-800 to-gray-800 bg-clip-text text-transparent dark:bg-gradient-to-r dark:from-violet-600 dark:to-indigo-600 dark:bg-clip-text dark:text-transparent">
