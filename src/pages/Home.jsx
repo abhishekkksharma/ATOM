@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import B from '../assets/homepageIcons/B.png';
 import C from '../assets/homepageIcons/C.png';
 import D from '../assets/homepageIcons/D.png';
@@ -10,6 +11,17 @@ import chatIcon from '../assets/homepageIcons/chatIcon.png';
 
 export default function App() {
   const [isVisible, setIsVisible] = useState(false);
+  const copyText = (e) => {
+    navigator.clipboard.writeText(`Hey! I just came across this awesome page and thought you’d like it too. Check it out: https://atom-beryl.vercel.app/`)
+      .then(() => {
+        const originalText = e.target.textContent; // save original
+        e.target.textContent = "Link Copied!"; // change text
+        setTimeout(() => {
+          e.target.textContent = originalText; // revert after 2s
+        }, 2000);
+      })
+      .catch(err => console.error("Failed to copy: ", err));
+  };
 
   useEffect(() => {
     // Trigger animations after component mounts
@@ -86,7 +98,7 @@ export default function App() {
             } sm:-rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: "400ms" }}
           >
-            <div className="rounded-2xl p-6 pt-7 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+            <div onClick={() => navigate('/Chatbot')} className="rounded-2xl p-6 pt-6 px-4 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
               {/* Chatbot Icon */}
               <div className="w-20 h-auto  mx-auto mb-4 flex items-center justify-center rounded-xl transition-colors duration-500">
                 {/* <svg
@@ -121,9 +133,9 @@ export default function App() {
             className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '600ms' }}
           >
-            <div className="rounded-2xl p-4 pt-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+            <div onClick={() => navigate('/therapists')} className="rounded-2xl p-4 pt-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
               <div className="w-auto h-24 mx-auto mb-2 pt-2 text-4xl flex items-center justify-center rounded-xl  transition-colors duration-500 ">
-                <img className='w-auto h-24 ' src={therapist} alt="therapists" />
+                <img className='w-auto h-26' src={therapist} alt="therapists" />
               </div>
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
                 Connect with
@@ -135,7 +147,7 @@ export default function App() {
           </div>
 
           {/* Card 3 */}
-          <div
+          <div onClick={() => navigate('/Connect')}
             className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '800ms' }}
           >
@@ -197,7 +209,7 @@ export default function App() {
                 </div>
 
                 {/* Action Button Section */}
-                <button className="bg-blue-300/40 hover:bg-blue-400 hover:text-white text-blue-600 dark:text-white font-bold py-2 px-2 text-sm rounded-lg shadow-md transition-all duration-300">
+                <button onClick={copyText} className="bg-blue-300/40 hover:bg-blue-400 hover:text-white text-blue-600 dark:text-white font-bold py-2 px-2 text-sm rounded-lg shadow-md transition-all duration-300">
                     Invite friends!
                 </button>
             </div>
