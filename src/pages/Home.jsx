@@ -126,7 +126,7 @@ export default function App() {
                 <img className='w-auto h-24 ' src={therapist} alt="therapists" />
               </div>
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Coonect with
+                Connect with
               </h3>
               <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
                 Therapists
@@ -144,7 +144,7 @@ export default function App() {
                   <img className='w-auto h-32 ' src={people} alt="" />
               </div>
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Coonect
+                Connect
               </h3>
               <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
                 check community
