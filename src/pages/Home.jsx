@@ -14,10 +14,10 @@ export default function App() {
   const copyText = (e) => {
     navigator.clipboard.writeText(`Hey! I just came across this awesome page and thought you’d like it too. Check it out: https://atom-beryl.vercel.app/`)
       .then(() => {
-        const originalText = e.target.textContent; // save original
-        e.target.textContent = "Link Copied!"; // change text
+        const originalText = e.target.textContent; 
+        e.target.textContent = "Link Copied!"; 
         setTimeout(() => {
-          e.target.textContent = originalText; // revert after 2s
+          e.target.textContent = originalText; 
         }, 2000);
       })
       .catch(err => console.error("Failed to copy: ", err));
