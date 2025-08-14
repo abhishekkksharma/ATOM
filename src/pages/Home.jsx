@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import B from '../assets/homepageIcons/B.png';
 import C from '../assets/homepageIcons/C.png';
 import D from '../assets/homepageIcons/D.png';
+import therapist from '../assets/homepageIcons/therapist.png';
+import people from '../assets/homepageIcons/people.png';
+import chatIcon from '../assets/homepageIcons/chatIcon.png';
 
 
 
@@ -19,7 +22,7 @@ export default function App() {
 
   return (
     // Main container is now the relative parent for the SVG
-    <div className="lg:mt-20 sm:mt-10 bg-transparent transition-all pt-0 duration-500 flex items-center justify-center p-4 overflow-hidden relative lg:pb-10 sm:pb-0">
+    <div className="lg:mt-20 sm:mt-10 bg-transparent flex items-center justify-center p-4 overflow-hidden relative pb-10">
       
         <div className="absolute inset-0 pointer-events-none">
           <svg
@@ -76,20 +79,39 @@ export default function App() {
         {/* Team Cards */}
         <div className="relative flex flex-wrap justify-center items-center gap-8 mb-12">
           
-          {/* Card 1 */}
+          {/* Card 1: AI Chatbot */}
           <div
-            className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:-rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
-            style={{ transitionDelay: '400ms' }}
+            className={`relative transition-all duration-1000 ease-out ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-20"
+            } sm:-rotate-12 sm:hover:rotate-0 sm:hover:scale-105`}
+            style={{ transitionDelay: "400ms" }}
           >
-            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
-              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
-                👩‍⚕️
+            <div className="rounded-2xl p-6 pt-7 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+              {/* Chatbot Icon */}
+              <div className="w-20 h-auto  mx-auto mb-4 flex items-center justify-center rounded-xl transition-colors duration-500">
+                {/* <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-10 w-10 text-gray-600 dark:text-gray-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                  />
+                </svg> */}
+                <img className='rounded-xl' src={chatIcon} alt="" />
               </div>
+              {/* Card Title */}
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Dr. Sarah Chen
+                Chat with AI
               </h3>
+              {/* Card Subtitle */}
               <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
-                Clinical Psychologist
+                Your Personal Assistant
               </p>
             </div>
           </div>
@@ -99,15 +121,15 @@ export default function App() {
             className={`relative transition-all duration-1000 ease-out ${ isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20' } sm:rotate-6 sm:hover:rotate-0 sm:hover:scale-105`}
             style={{ transitionDelay: '600ms' }}
           >
-            <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
-              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
-                👨‍💼
+            <div className="rounded-2xl p-4 pt-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
+              <div className="w-auto h-24 mx-auto mb-2 pt-2 text-4xl flex items-center justify-center rounded-xl  transition-colors duration-500 ">
+                <img className='w-auto h-24 ' src={therapist} alt="therapists" />
               </div>
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Michael Torres
+                Coonect with
               </h3>
               <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
-                Therapist
+                Therapists
               </p>
             </div>
           </div>
@@ -118,14 +140,14 @@ export default function App() {
             style={{ transitionDelay: '800ms' }}
           >
             <div className="rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-500 backdrop-blur-md min-w-[180px] bg-white/40 border border-gray-200/50 dark:bg-gray-800 dark:border-gray-700">
-              <div className="w-16 h-16 mx-auto mb-4 text-4xl flex items-center justify-center rounded-full shadow-md transition-colors duration-500 bg-gray-50 dark:bg-gray-700">
-                👩‍🔬
+              <div className="w-auto h-24 mx-auto text-4xl flex items-center justify-center rounded-full transition-colors duration-500">
+                  <img className='w-auto h-32 ' src={people} alt="" />
               </div>
               <h3 className="font-semibold text-lg mb-1 transition-colors duration-500 text-gray-900 dark:text-white">
-                Dr. Emily Watson
+                Coonect
               </h3>
               <p className="text-sm font-medium transition-colors duration-500 text-gray-600 dark:text-gray-300">
-                Psychiatrist
+                check community
               </p>
             </div>
           </div>
@@ -167,7 +189,7 @@ export default function App() {
                     <div className="flex justify-center items-center gap-1 flex-wrap">
                     <span className="">We are</span>
                     <span className="">together,</span>
-                    <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-md">
+                    <span className="bg-blue-500 text-white text-xs shadow-xl font-bold px-2 py-0.5 rounded-md">
                         165K
                     </span>
                     </div>
