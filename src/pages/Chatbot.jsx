@@ -41,9 +41,9 @@ const Chatbot = () => {
   // Pre-defined frequently asked questions
   const faqs = [
     "What are your capabilities?",
-    "What is React?",
-    "Explain Tailwind CSS in simple terms.",
-    "How do I get started with AI?",
+    "What to do when stressed?",
+    "How to seek mental health assistantace?",
+    "How do I get started with my therapy?",
   ];
 
   // Function to handle sending a message (user or FAQ)
