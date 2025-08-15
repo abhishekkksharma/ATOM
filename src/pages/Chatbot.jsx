@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import './custom css/chatbot.css';
+
 // Helper component for SVG icons
 const Icon = ({ name, className }) => {
   const icons = {
@@ -18,6 +18,12 @@ const Icon = ({ name, className }) => {
     bot: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path><path d="M12 16l-2 2.5 2 2.5 2-2.5-2-2.5z"></path></svg>
     ),
+    mic: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+    ),
+    micOff: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="2" y1="2" x2="22" y2="22"></line><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"></path><path d="M5 10v2a7 7 0 0 0 12 5"></path><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"></path><path d="M9 9v3a3 3 0 0 0 5.12 2.12"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+    ),
   };
   return icons[name] || null;
 };
@@ -30,8 +36,43 @@ const Chatbot = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [chatInitiated, setChatInitiated] = useState(false); // New state to track conversation start
+  const [chatInitiated, setChatInitiated] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
   const messagesEndRef = useRef(null);
+  const recognitionRef = useRef(null);
+
+  // Check for speech recognition support and initialize
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      setSpeechSupported(true);
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      
+      const recognition = recognitionRef.current;
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue(transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+    }
+  }, []);
 
   // Effect to scroll to the latest message
   useEffect(() => {
@@ -42,9 +83,23 @@ const Chatbot = () => {
   const faqs = [
     "What are your capabilities?",
     "What to do when stressed?",
-    "How to seek mental health assistantace?",
+    "How to seek mental health assistance?",
     "How do I get started with my therapy?",
   ];
+
+  // Function to toggle speech recognition
+  const toggleSpeechRecognition = () => {
+    if (!speechSupported) {
+      alert('Speech recognition is not supported in your browser');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+  };
 
   // Function to handle sending a message (user or FAQ)
   const handleSendMessage = async (text) => {
@@ -180,20 +235,47 @@ const Chatbot = () => {
               </div>
             )}
 
-            {/* Input Form */}
-            <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(inputValue); }} className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Type your message..."
-                className="flex-1 p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 bg-white/80 border-gray-300 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                disabled={isLoading}
-              />
-              <button type="submit" disabled={isLoading || !inputValue.trim()} className="p-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700">
+            {/* Input Section with Speech Button */}
+            <div className="flex items-center space-x-2">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage(inputValue);
+                    }
+                  }}
+                  placeholder={isListening ? "Listening..." : "Type your message..."}
+                  className={`w-full p-3 pr-12 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 bg-white/80 border-gray-300 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${isListening ? 'ring-2 ring-red-400 border-red-400' : ''}`}
+                  disabled={isLoading}
+                />
+                {speechSupported && (
+                  <button
+                    type="button"
+                    onClick={toggleSpeechRecognition}
+                    className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-all duration-200 ${
+                      isListening 
+                        ? 'bg-red-100 text-red-600 hover:bg-red-200 animate-pulse' 
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500'
+                    }`}
+                    disabled={isLoading}
+                    title={isListening ? "Stop recording" : "Start voice input"}
+                  >
+                    <Icon name={isListening ? "micOff" : "mic"} className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              <button 
+                onClick={() => handleSendMessage(inputValue)}
+                disabled={isLoading || !inputValue.trim()} 
+                className="p-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700"
+              >
                 <Icon name="send" className="w-6 h-6" />
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
