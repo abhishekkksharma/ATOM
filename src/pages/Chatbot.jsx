@@ -75,8 +75,15 @@ const Chatbot = () => {
   }, []);
 
   // Effect to scroll to the latest message
+  const chatContainerRef = useRef(null);
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const chatContainer = chatContainerRef.current;
+    if (chatContainer) {
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [messages]);
 
   // Pre-defined frequently asked questions
@@ -183,7 +190,7 @@ const Chatbot = () => {
         <div className="flex-1 flex flex-col rounded-2xl overflow-hidden shadow-lg border border-gray-200/50 bg-white/60 dark:border-gray-700/50 dark:bg-gray-800/60 backdrop-blur-xl min-h-0">
           
           {/* Messages Display */}
-          <div className="flex-1 p-6 space-y-4 overflow-y-auto no-scrollbar">
+          <div ref={chatContainerRef} className="flex-1 p-6 px-4 space-y-4 overflow-y-auto no-scrollbar">
             {messages.map((msg, index) => (
               <div key={index} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.sender === 'bot' && (
@@ -192,7 +199,7 @@ const Chatbot = () => {
                   </div>
                 )}
                 <div className={`max-w-xs md:max-w-md px-4 py-3 rounded-2xl ${msg.sender === 'user' ? 'rounded-br-lg bg-blue-500 text-white dark:bg-blue-600' : 'rounded-bl-lg bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}`}>
-                  <p className="text-sm">{msg.text}</p>
+                  <p className="text-sm break-words">{msg.text}</p>
                 </div>
                  {msg.sender === 'user' && (
                   <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-300 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
