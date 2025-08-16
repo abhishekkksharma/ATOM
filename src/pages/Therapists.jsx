@@ -45,7 +45,7 @@ export default function Therapists() {
   // ];
 
   return (
-      <div className='flex justify-center'>
+      <div className='h-screen flex justify-center items-center'>
       <h1 className='text-black font-bold text-4xl dark:text-white'>Therapist Page</h1>
     </div>
 

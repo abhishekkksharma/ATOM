@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import send from '../assets/chatbotpage/send.png';
+// import logo from '/public/logo.png'
 
 // Helper component for SVG icons
 const Icon = ({ name, className }) => {
   const icons = {
-    sun: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-    ),
-    moon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    ),
     send: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
     ),
@@ -194,8 +190,9 @@ const Chatbot = () => {
             {messages.map((msg, index) => (
               <div key={index} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.sender === 'bot' && (
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"> {/* bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300*/}
                     <Icon name="bot" className="w-6 h-6" />
+                    {/* <img className='w-10 h-auto rounded-full' src={logo} alt="" /> */}
                   </div>
                 )}
                 <div className={`max-w-xs md:max-w-md px-4 py-3 rounded-2xl ${msg.sender === 'user' ? 'rounded-br-lg bg-blue-500 text-white dark:bg-blue-600' : 'rounded-bl-lg bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}`}>
@@ -280,7 +277,8 @@ const Chatbot = () => {
                 disabled={isLoading || !inputValue.trim()} 
                 className="p-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700"
               >
-                <Icon name="send" className="w-6 h-6" />
+                {/* <Icon name="send" className="w-6 h-6" /> */}
+                <img className='w-6 h-6' src={send} alt="" />
               </button>
             </div>
           </div>

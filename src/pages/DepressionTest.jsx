@@ -173,98 +173,101 @@ export default function DepressionTest() {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Depression Screening Test
-        </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-          This is a self-assessment tool to help you understand your mental health. 
-          It's not a diagnosis, but it can help you decide if you should seek professional help.
-        </p>
-      </div>
+    // <div className="space-y-8">
+    //   <div className="text-center">
+    //     <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+    //       Depression Screening Test
+    //     </h1>
+    //     <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+    //       This is a self-assessment tool to help you understand your mental health. 
+    //       It's not a diagnosis, but it can help you decide if you should seek professional help.
+    //     </p>
+    //   </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200/50 dark:border-gray-700/50">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              Question {currentQuestion + 1} of {questions.length}
-            </span>
-            <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-              <div 
-                className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-              ></div>
-            </div>
-          </div>
-        </div>
+    //   <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200/50 dark:border-gray-700/50">
+    //     <div className="mb-8">
+    //       <div className="flex items-center justify-between mb-4">
+    //         <span className="text-sm text-gray-500 dark:text-gray-400">
+    //           Question {currentQuestion + 1} of {questions.length}
+    //         </span>
+    //         <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+    //           <div 
+    //             className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+    //             style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+    //           ></div>
+    //         </div>
+    //       </div>
+    //     </div>
 
-        <div className="space-y-8">
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
-              {questions[currentQuestion].question}
-            </h2>
+    //     <div className="space-y-8">
+    //       <div>
+    //         <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+    //           {questions[currentQuestion].question}
+    //         </h2>
             
-            <div className="space-y-3">
-              {questions[currentQuestion].options.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => handleAnswer(option.value)}
-                  className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${
-                    answers[questions[currentQuestion].id] === option.value
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
-          </div>
+    //         <div className="space-y-3">
+    //           {questions[currentQuestion].options.map((option) => (
+    //             <button
+    //               key={option.value}
+    //               onClick={() => handleAnswer(option.value)}
+    //               className={`w-full text-left p-4 rounded-lg border transition-all duration-200 ${
+    //                 answers[questions[currentQuestion].id] === option.value
+    //                   ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+    //                   : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
+    //               }`}
+    //             >
+    //               {option.label}
+    //             </button>
+    //           ))}
+    //         </div>
+    //       </div>
 
-          <div className="flex justify-between">
-            <button
-              onClick={previousQuestion}
-              disabled={currentQuestion === 0}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
-                currentQuestion === 0
-                  ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
-            >
-              Previous
-            </button>
+    //       <div className="flex justify-between">
+    //         <button
+    //           onClick={previousQuestion}
+    //           disabled={currentQuestion === 0}
+    //           className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+    //             currentQuestion === 0
+    //               ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+    //               : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+    //           }`}
+    //         >
+    //           Previous
+    //         </button>
             
-            <button
-              onClick={nextQuestion}
-              disabled={!answers[questions[currentQuestion].id]}
-              className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
-                !answers[questions[currentQuestion].id]
-                  ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
-              }`}
-            >
-              {currentQuestion === questions.length - 1 ? 'See Results' : 'Next'}
-            </button>
-          </div>
-        </div>
-      </div>
+    //         <button
+    //           onClick={nextQuestion}
+    //           disabled={!answers[questions[currentQuestion].id]}
+    //           className={`px-6 py-3 rounded-lg font-medium transition-colors duration-200 ${
+    //             !answers[questions[currentQuestion].id]
+    //               ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+    //               : 'bg-blue-600 hover:bg-blue-700 text-white'
+    //           }`}
+    //         >
+    //           {currentQuestion === questions.length - 1 ? 'See Results' : 'Next'}
+    //         </button>
+    //       </div>
+    //     </div>
+    //   </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
-        <div className="flex items-start space-x-3">
-          <svg className="w-6 h-6 text-blue-600 dark:text-blue-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div>
-            <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Important Note</h3>
-            <p className="text-blue-800 dark:text-blue-200 text-sm">
-              This test is for informational purposes only and is not a substitute for professional medical advice, 
-              diagnosis, or treatment. If you're experiencing severe symptoms, please contact a mental health 
-              professional or call the National Suicide Prevention Lifeline at 988.
-            </p>
-          </div>
-        </div>
-      </div>
+    //   <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+    //     <div className="flex items-start space-x-3">
+    //       <svg className="w-6 h-6 text-blue-600 dark:text-blue-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    //         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    //       </svg>
+    //       <div>
+    //         <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Important Note</h3>
+    //         <p className="text-blue-800 dark:text-blue-200 text-sm">
+    //           This test is for informational purposes only and is not a substitute for professional medical advice, 
+    //           diagnosis, or treatment. If you're experiencing severe symptoms, please contact a mental health 
+    //           professional or call the National Suicide Prevention Lifeline at 988.
+    //         </p>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className='h-screen flex justify-center items-center font-bold text-4xl'>
+      <h1 className='text-black dark:text-white'>Depression test</h1>
     </div>
   );
 } 
