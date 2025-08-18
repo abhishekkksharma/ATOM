@@ -6,5 +6,5 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: '/', //newline
   plugins: [react(),tailwindcss()],
-  base: process.env.VITE_BASE_PATH || "/ATOM"
+  // base: process.env.VITE_BASE_PATH || "/ATOM"
 })
