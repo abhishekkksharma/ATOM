@@ -136,7 +136,7 @@ const Chatbot = () => {
     try {
       // --- API Call to OpenRouter ---
       // IMPORTANT: Replace "YOUR_OPENROUTER_API_KEY" with your actual key.
-      const getapi = import.meta.env.VITE_API_KEY;
+      const getapi = process.env.VITE_API_KEY;
       console.log("API key : ", getapi);
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: "POST",
