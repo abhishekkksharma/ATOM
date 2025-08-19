@@ -1,4 +1,6 @@
 import React from 'react';
+import hero from '../assets/therapists/image.png';
+
 
 export default function Therapists() {
   // const therapists = [
@@ -45,9 +47,16 @@ export default function Therapists() {
   // ];
 
   return (
-      <div className='h-screen flex justify-center items-center'>
-      <h1 className='text-black font-bold text-4xl dark:text-white'>Therapist Page</h1>
+    <>
+    <div className='flex justify-cente p-4 rounded-2xl  items-center flex-col dark:text-white'>
+      {/* <img className='max-w-[200px] sm:w-50 h-auto' src={hero} alt="" /> */}
+      <p className='font-bold text-2xl sm:text-3xl md:text-4xl text-center md:text-left'>
+      Connect with a Therapist near you !</p>    
     </div>
+    </>
+    //   <div className='h-screen flex justify-center items-center'>
+    //   <h1 className='text-black font-bold text-4xl dark:text-white'>Therapist Page</h1>
+    // </div>
 
     // <div className="space-y-8">
     //   <div className="text-center">
