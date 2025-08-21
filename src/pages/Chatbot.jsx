@@ -24,6 +24,53 @@ const Icon = ({ name, className }) => {
   return icons[name] || null;
 };
 
+// Component to render text with multiple formatting options
+const FormattedText = ({ text }) => {
+  const formatText = (text) => {
+    // Create a comprehensive regex that matches all formatting patterns
+    const formatRegex = /(\*\*.*?\*\*|\*(?!\*)[^*]*?\*|~~.*?~~|`[^`]*?`)/g;
+    const parts = text.split(formatRegex);
+    
+    return parts.map((part, index) => {
+      // Bold text (**text**)
+      if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+        const boldText = part.slice(2, -2);
+        return <strong key={index}>{boldText}</strong>;
+      }
+      
+      // Italic text (*text*) - but not if it's part of **text**
+      if (part.startsWith('*') && part.endsWith('*') && part.length > 2 && !part.startsWith('**')) {
+        const italicText = part.slice(1, -1);
+        return <em key={index}>{italicText}</em>;
+      }
+      
+      // Strikethrough text (~~text~~)
+      if (part.startsWith('~~') && part.endsWith('~~') && part.length > 4) {
+        const strikeText = part.slice(2, -2);
+        return <span key={index} className="line-through">{strikeText}</span>;
+      }
+      
+      // Code text (`text`)
+      if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+        const codeText = part.slice(1, -1);
+        return (
+          <code 
+            key={index} 
+            className="px-1 py-0.5 rounded text-xs bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 font-mono"
+          >
+            {codeText}
+          </code>
+        );
+      }
+      
+      // Regular text
+      return part;
+    });
+  };
+
+  return <span>{formatText(text)}</span>;
+};
+
 // Main Chatbot Component
 const Chatbot = () => {
   // State management
@@ -197,7 +244,9 @@ const Chatbot = () => {
                   </div>
                 )}
                 <div className={`max-w-xs md:max-w-md px-4 py-3 rounded-2xl ${msg.sender === 'user' ? 'rounded-br-lg bg-blue-500 text-white dark:bg-blue-600' : 'rounded-bl-lg bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}`}>
-                  <p className="text-sm break-words">{msg.text}</p>
+                  <p className="text-sm break-words">
+                    <FormattedText text={msg.text} />
+                  </p>
                 </div>
                  {msg.sender === 'user' && (
                   <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-300 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
