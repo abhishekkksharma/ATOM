@@ -6,6 +6,8 @@ import D from '../assets/homepageIcons/D.png';
 import therapist from '../assets/homepageIcons/therapist.png';
 import people from '../assets/homepageIcons/people.png';
 import chatIcon from '../assets/homepageIcons/chatIcon.png';
+import ContactForm from './../components/ContactForm';
+
 
 
 
@@ -34,7 +36,8 @@ export default function App() {
   }, []);
 
   return (
-    // Main container is now the relative parent for the SVG
+    <>
+    {/* // Main container is now the relative parent for the SVG */}
     <div className="lg:mt-20 sm:mt-10 bg-transparent flex items-center justify-center p-4 overflow-hidden relative pb-10">
       
         <div className="absolute inset-0 pointer-events-none">
@@ -241,6 +244,11 @@ export default function App() {
         }
       `}</style>
     </div>
+    <div>
+      <ContactForm/>
+    </div>
+    </>
+
     
   );
 }

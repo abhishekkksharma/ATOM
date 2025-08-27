@@ -9,6 +9,7 @@ import DepressionTest from './pages/DepressionTest';
 import YourZone from './pages/YourZone';
 import Connect from './pages/Connect';
 import About from './pages/About';
+// import xy from './pages/xy';
 
 export default function App() {
   return (
