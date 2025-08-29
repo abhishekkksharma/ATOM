@@ -1,5 +1,6 @@
 import React from 'react';
 import ContactForm from './../components/ContactForm';
+import TherapistCard from './../components/therapistCard';
 
 export default function Chatbot() {
   return (

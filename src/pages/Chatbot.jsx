@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import send from '../assets/chatbotpage/send.png';
+import chatbotIcon from '../assets/chatbotpage/chatbot.png';
 // import logo from '/public/logo.png'
 
 // Helper component for SVG icons
@@ -239,8 +240,8 @@ const Chatbot = () => {
               <div key={index} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.sender === 'bot' && (
                   <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"> {/* bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300*/}
-                    <Icon name="bot" className="w-6 h-6" />
-                    {/* <img className='w-10 h-auto rounded-full' src={logo} alt="" /> */}
+                    {/* <Icon name="bot" className="w-6 h-6" /> */}
+                    <img className='w-10 h-auto rounded-full' src={chatbotIcon} alt="" />
                   </div>
                 )}
                 <div className={`max-w-xs md:max-w-md px-4 py-3 rounded-2xl ${msg.sender === 'user' ? 'rounded-br-lg bg-blue-500 text-white dark:bg-blue-600' : 'rounded-bl-lg bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200'}`}>

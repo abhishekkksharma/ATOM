@@ -78,7 +78,7 @@ export default function App() {
 
         
       {/* Content container remains constrained and centered */}
-      <div className="max-w-6xl mx-auto text-center relative">
+      <div className="max-w-6xl mx-auto text-center relative mb-10">
         
         {/* Header Content */}
         <div className={`mb-16 transition-all duration-1000 ${
