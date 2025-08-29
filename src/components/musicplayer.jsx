@@ -177,7 +177,7 @@ const MusicPlayer = ({
           
           {/* Header */}
           <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-3 bg-gray-200/20 pl-2 pr-3 rounded-full">
+            <div className="flex items-center space-x-3 bg-gray-200/20 pl-1 pr-3 rounded-full">
               <img 
                 src={albumArtUrl} 
                 alt={artistName} 
