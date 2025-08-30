@@ -20,7 +20,7 @@ export default function Chatbot() {
           </p>
         </div>
       </div>
-      <section className="py-12 px-6 bg-gray-50 dark:bg-gray-800">
+      <section className="py-12 px-6 bg-gray-50 dark:bg-transparent">
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             <div>

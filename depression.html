@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Self-Assessment</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Apply the Inter font family to the body */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for radio buttons */
+        .question-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Depression Self-Assessment</h1>
+            <p class="mt-2 text-lg text-slate-600 max-w-3xl mx-auto">This quiz can help you determine if you may be experiencing symptoms of depression. It's a starting point, not a diagnosis.</p>
+        </header>
+
+        <!-- Questionnaire Section -->
+        <main class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-xl shadow-md p-6 md:p-8">
+            <div id="quiz-container">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4">Over the last 2 weeks, how often have you been bothered by any of the following problems?</h2>
+                <form id="depression-quiz" class="space-y-8">
+                    <!-- Questions will be dynamically inserted here by JavaScript -->
+                </form>
+                <button id="submit-btn" class="w-full mt-8 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Calculate My Score
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-container" class="hidden text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Your Result</h2>
+                <div id="score-display" class="text-6xl font-bold text-indigo-600 mb-4"></div>
+                <div id="interpretation" class="text-lg text-slate-700 mb-6"></div>
+                <p class="text-sm text-slate-500">
+                    This result is not a diagnosis. A doctor or therapist can help you understand these results and discuss your mental health.
+                </p>
+                 <button id="retake-btn" class="w-full md:w-auto mt-8 bg-slate-200 text-slate-800 font-bold py-3 px-6 rounded-lg hover:bg-slate-300 transition duration-300 ease-in-out">
+                    Take the Test Again
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Disclaimer -->
+        <footer class="text-center mt-12">
+            <p class="text-xs text-slate-500 max-w-2xl mx-auto">
+                <strong>Disclaimer:</strong> This test is based on the Patient Health Questionnaire (PHQ-9) and is intended for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const quizForm = document.getElementById('depression-quiz');
+            const submitButton = document.getElementById('submit-btn');
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreDisplay = document.getElementById('score-display');
+            const interpretationDisplay = document.getElementById('interpretation');
+            const retakeButton = document.getElementById('retake-btn');
+
+            // Questions for the PHQ-9
+            const questions = [
+                "Little interest or pleasure in doing things",
+                "Feeling down, depressed, or hopeless",
+                "Trouble falling or staying asleep, or sleeping too much",
+                "Feeling tired or having little energy",
+                "Poor appetite or overeating",
+                "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
+                "Trouble concentrating on things, such as reading the newspaper or watching television",
+                "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual",
+                "Thoughts that you would be better off dead or of hurting yourself in some way"
+            ];
+
+            // Options for each question
+            const options = [
+                { text: "Not at all", value: 0 },
+                { text: "Several days", value: 1 },
+                { text: "More than half the days", value: 2 },
+                { text: "Nearly every day", value: 3 }
+            ];
+
+            // Function to generate the quiz questions HTML
+            function generateQuiz() {
+                let quizHTML = '';
+                questions.forEach((question, index) => {
+                    quizHTML += `<fieldset class="border-t border-slate-200 pt-6">`;
+                    quizHTML += `<legend class="text-lg font-medium text-slate-800 mb-4">${index + 1}. ${question}</legend>`;
+                    quizHTML += `<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">`;
+                    options.forEach(option => {
+                        quizHTML += `
+                            <label for="q${index}-${option.value}" class="question-option border border-slate-300 rounded-lg p-4 hover:bg-indigo-50 hover:border-indigo-400 has-[:checked]:bg-indigo-100 has-[:checked]:border-indigo-500">
+                                <input type="radio" id="q${index}-${option.value}" name="q${index}" value="${option.value}" class="mr-3 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300" required>
+                                <span class="text-slate-700">${option.text}</span>
+                            </label>
+                        `;
+                    });
+                    quizHTML += `</div></fieldset>`;
+                });
+                quizForm.innerHTML = quizHTML;
+            }
+
+            // Function to calculate score and show results
+            function showResults(event) {
+                event.preventDefault();
+                const formData = new FormData(quizForm);
+                let score = 0;
+                let answeredQuestions = 0;
+
+                for (let value of formData.values()) {
+                    score += parseInt(value, 10);
+                    answeredQuestions++;
+                }
+
+                // Check if all questions are answered
+                if (answeredQuestions < questions.length) {
+                    alert('Please answer all questions before submitting.');
+                    return;
+                }
+
+                scoreDisplay.textContent = score;
+                interpretationDisplay.innerHTML = getInterpretation(score);
+
+                quizContainer.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+            }
+            
+            // Function to get the interpretation based on the score
+            function getInterpretation(score) {
+                if (score <= 4) {
+                    return "<strong>Minimal depression:</strong> Your score suggests you may be experiencing few, if any, symptoms of depression. It's always good to practice self-care.";
+                } else if (score <= 9) {
+                    return "<strong>Mild depression:</strong> Your score suggests you may be experiencing mild symptoms of depression. Consider talking to a friend, family member, or a professional.";
+                } else if (score <= 14) {
+                    return "<strong>Moderate depression:</strong> Your score suggests you may be experiencing moderate symptoms of depression. It is recommended to consult with a doctor or mental health professional.";
+                } else if (score <= 19) {
+                    return "<strong>Moderately severe depression:</strong> Your score suggests you may be experiencing moderately severe symptoms of depression. Professional help is highly recommended.";
+                } else {
+                    return "<strong>Severe depression:</strong> Your score suggests you may be experiencing severe symptoms of depression. Please seek professional help as soon as possible.";
+                }
+            }
+
+            // Function to retake the quiz
+            function retakeQuiz() {
+                quizForm.reset();
+                resultsContainer.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+            }
+
+            // Event Listeners
+            submitButton.addEventListener('click', showResults);
+            retakeButton.addEventListener('click', retakeQuiz);
+
+            // Initialize the quiz
+            generateQuiz();
+        });
+    </script>
+</body>
+</html>

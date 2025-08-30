@@ -252,7 +252,7 @@ export default function ContactForm() {
               </div>
               <div className="text-white">
                 <h4 className="font-semibold text-xs">Email</h4>
-                <p className="text-gray-400 text-xs">atomconnect@mail.com</p>
+                <a href="mailto:abhisheksharma7340733@mail.com" className="text-gray-400 text-xs hover:underline">atomconnect@mail.com</a>
               </div>
             </div>
 
@@ -262,7 +262,7 @@ export default function ContactForm() {
               </div>
               <div className="text-white">
                 <h4 className="font-semibold text-xs">Phone</h4>
-                <p className="text-gray-400 text-xs">(+91) 7340733286</p>
+                <a href="tel:+917340733286" className="text-gray-400 text-xs hover:underline">(+91) 7340733286</a>
               </div>
             </div>
 
