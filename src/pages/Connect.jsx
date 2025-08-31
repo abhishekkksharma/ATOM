@@ -335,7 +335,7 @@ export default function Connect() {
     //   </div>
     // </div>
     <div className='h-screen flex justify-center items-center font-bold text-4xl'>
-      <h1 className='dark:text-white'>Connect page</h1>
+      <h1 className='dark:text-white text-center'>We're still working, Stay tuned</h1>
     </div>
   );
 } 
