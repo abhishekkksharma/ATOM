@@ -246,7 +246,7 @@ const AuthPage = () => {
     ];
 
     return (
-        <div className="flex flex-col justify-center items-center p-4 transition-colors duration-300">
+        <div className="min-h-screen flex flex-col justify-center items-center p-4 transition-colors duration-300">
             <div className="max-w-md w-full mx-auto">
                 <div className="text-center mb-8">
                      <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100">
