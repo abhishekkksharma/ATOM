@@ -136,8 +136,8 @@ const AuthPage = () => {
     ];
 
     const ageOptions = Array.from({ length: 83 }, (_, i) => ({
-        value: (i + 18).toString(),
-        label: (i + 18).toString()
+        value: (i + 13).toString(),
+        label: (i + 13).toString()
     }));
 
     const cityOptions = [
@@ -186,7 +186,7 @@ const AuthPage = () => {
         { value: 'jodhpur', label: 'Jodhpur' },
         { value: 'madurai', label: 'Madurai' },
         { value: 'raipur', label: 'Raipur' },
-        { value: 'kota', label: 'Kota' },
+        { value: 'kota' , label: 'Kota' },
         { value: 'chandigarh', label: 'Chandigarh' },
         { value: 'guwahati', label: 'Guwahati' },
         { value: 'solapur', label: 'Solapur' },
