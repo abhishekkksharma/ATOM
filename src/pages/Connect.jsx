@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
-
+import Comma from '../assets/Comma/image.png'
 
 export default function Connect() {
   const [activeTab, setActiveTab] = useState('community');
@@ -107,7 +107,8 @@ export default function Connect() {
         </div>
       </div>
     </div>
-    </>
+
+</>
   );
 } 
 // const container = document.getElementById('root');

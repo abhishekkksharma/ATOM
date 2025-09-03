@@ -7,6 +7,7 @@ import therapist from '../assets/homepageIcons/therapist.png';
 import people from '../assets/homepageIcons/people.png';
 import chatIcon from '../assets/homepageIcons/chatIcon.png';
 import ContactForm from './../components/ContactForm';
+import TestimonialCard from '../components/Testimonials/card';
 
 
 
@@ -78,7 +79,7 @@ export default function App() {
 
         
       {/* Content container remains constrained and centered */}
-      <div className="max-w-6xl mx-auto text-center relative mb-10">
+      <div className="max-w-6xl mx-auto text-center relative mb-20">
         
         {/* Header Content */}
         <div className={`mb-16 transition-all duration-1000 ${
@@ -244,6 +245,37 @@ export default function App() {
         }
       `}</style>
     </div>
+
+    <div>
+  {/* Testimonials Heading */}
+  <h2 className="text-2xl lg:text-3xl mx-8 lg:mx-0 font-bold text-center text-gray-800 dark:text-gray-200 my-12">
+    See what people say about us<span className='text-blue-300 font-extrabold p-1'>!</span>
+  </h2>
+
+  {/* Container for the cards */}
+    <div className='flex flex-wrap gap-6 justify-center items-center mb-30'>
+      <TestimonialCard 
+        name="Abhishek"
+        role="User"
+        imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
+        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        />
+      <TestimonialCard 
+        name="Aman"
+        role="User"
+        imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
+        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        />
+      <TestimonialCard 
+        name="Namish"
+        role="User"
+        imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
+        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        />
+    </div>
+  </div>
+
+    {/* Contact form */}
     <div>
       <ContactForm/>
     </div>
