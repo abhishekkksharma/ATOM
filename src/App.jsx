@@ -9,24 +9,24 @@ import DepressionTest from './pages/DepressionTest';
 import YourZone from './pages/YourZone';
 import Connect from './pages/Connect';
 import About from './pages/About';
-import AuthPage from './pages/AuthPage'; // Add this import
-
+import AuthPage from './pages/AuthPage';
 // import xy from './pages/xy';
 
 export default function App() {
+  const values = "container mx-auto px-4 sm:px-6 lg:px-8 py-8";
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-black transition-colors duration-300">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/therapists" element={<Therapists />} />
-          <Route path="/depression-test" element={<DepressionTest />} />
-          <Route path="/your-zone" element={<YourZone />} />
-          <Route path="/connect" element={<Connect />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/chatbot" element={<div className={values}><Chatbot /></div>} />
+          <Route path="/therapists" element={<div className={values}><Therapists /></div>} />
+          <Route path="/depression-test" element={<div className={values}><DepressionTest /></div>} />
+          <Route path="/your-zone" element={<div className={values}><YourZone /></div>} />
+          <Route path="/connect" element={<div className={values}><Connect /></div>} />
+          <Route path="/about" element={<div className={values}><About /></div>} />
+          <Route path="/auth" element={<div className={values}><AuthPage /></div>} />
           {/* Redirect any unknown routes to home page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import B from '../assets/homepageIcons/B.png';
 import C from '../assets/homepageIcons/C.png';
 import D from '../assets/homepageIcons/D.png';
@@ -8,6 +8,7 @@ import people from '../assets/homepageIcons/people.png';
 import chatIcon from '../assets/homepageIcons/chatIcon.png';
 import ContactForm from './../components/ContactForm';
 import TestimonialCard from '../components/Testimonials/card';
+import ChatBotPhoneImg from '../assets/homepageIcons/ChatbotPhoneImg.png'
 
 
 
@@ -227,12 +228,12 @@ export default function App() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '1200ms' }}>
-          <button className="group inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-blue-100/40 text-blue-800 border border-blue-300/10 dark:bg-gray-800/40 dark:border-gray-700/50 dark:text-white backdrop-blur-md">
+          <Link to="/depression-test" className="group inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-blue-100/40 text-blue-800 border border-blue-300/10 dark:bg-gray-800/40 dark:border-gray-700/50 dark:text-white backdrop-blur-md">
             Start Your Journey
             <span className="group-hover:translate-x-1 transition-transform duration-200">
               →
             </span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -245,6 +246,21 @@ export default function App() {
         }
       `}</style>
     </div>
+
+  {/* Chatbot feature section */}
+  <div className='flex flex-col w-full md:flex-row justify-center items-center my-50'>
+    <div className='bg-purple-50 h-96 w-full md:w-1/2 flex flex-col gap-2 items-center justify-center p-8'>
+      <img className='h-100 -mt-30' src={ChatBotPhoneImg} alt="" />
+      <h2 className="text-3xl font-bold text-purple-800 text-center">Your AI Companion</h2>
+      <p className='font-bold text-gray-500'>Avalable 24/7</p>
+    </div>
+    <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 bg-gray-100 dark:bg-gray-900 h-96">
+      <p className="text-xl lg:text-2xl text-gray-700 font-semibold p-4 dark:text-gray-300 text-center">Engage in meaningful conversations, get support, and explore your thoughts in a safe space.</p>
+      <Link to="/chatbot" className='bg-blue-100 font-semibold dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-xl'>
+        checkout→
+      </Link>
+    </div>
+  </div>
 
     <div>
   {/* Testimonials Heading */}
@@ -279,8 +295,9 @@ export default function App() {
     <div>
       <ContactForm/>
     </div>
+
+
     </>
 
-    
   );
 }
