@@ -9,7 +9,7 @@ import chatIcon from '../assets/homepageIcons/chatIcon.png';
 import ContactForm from './../components/ContactForm';
 import TestimonialCard from '../components/Testimonials/card';
 import ChatBotPhoneImg from '../assets/homepageIcons/ChatbotPhoneImg.png'
-
+import FaqComponent from '../components/FAQs';
 
 
 
@@ -296,7 +296,10 @@ export default function App() {
       <ContactForm/>
     </div>
 
-
+    {/* Faq */}
+    <div>
+      <FaqComponent/>
+    </div>
     </>
 
   );

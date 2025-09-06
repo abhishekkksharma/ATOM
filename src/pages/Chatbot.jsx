@@ -259,7 +259,8 @@ const Chatbot = () => {
             {isLoading && (
               <div className="flex items-start gap-3 justify-start">
                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
-                    <Icon name="bot" className="w-6 h-6" />
+                    {/* <Icon name="bot" className="w-6 h-6" /> */}
+                    <img className='w-10 h-auto rounded-full' src={chatbotIcon} alt="" />
                   </div>
                 <div className="px-4 py-3 rounded-2xl rounded-bl-lg bg-gray-200 dark:bg-gray-700">
                   <div className="flex items-center justify-center space-x-1">
