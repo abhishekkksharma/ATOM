@@ -248,13 +248,13 @@ export default function App() {
     </div>
 
   {/* Chatbot feature section */}
-  <div className='flex flex-col w-full md:flex-row justify-center items-center my-50'>
-    <div className='bg-purple-50 h-96 w-full md:w-1/2 flex flex-col gap-2 items-center justify-center p-8'>
+  <div className='flex flex-col dark:bg-[radial-gradient(circle_at_bottom,_rgba(59,130,246,0.2)_0,_transparent_50%)] w-full md:flex-row justify-center items-center my-50'>
+    <div className='bg-purple-50 dark:bg-transparent h-96 w-full md:w-1/2 flex flex-col gap-2 items-center justify-center p-8'>
       <img className='h-100 -mt-30' src={ChatBotPhoneImg} alt="" />
-      <h2 className="text-3xl font-bold text-purple-800 text-center">Your AI Companion</h2>
+      <h2 className="text-3xl font-bold text-purple-800 dark:text-purple-200 text-center">Your AI Companion</h2>
       <p className='font-bold text-gray-500'>Avalable 24/7</p>
     </div>
-    <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 bg-gray-100 dark:bg-gray-900 h-96">
+    <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 bg-gray-100 dark:bg-transparent h-96">
       <p className="text-xl lg:text-2xl text-gray-700 font-semibold p-4 dark:text-gray-300 text-center">Engage in meaningful conversations, get support, and explore your thoughts in a safe space.</p>
       <Link to="/chatbot" className='bg-blue-100 font-semibold dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-xl'>
         checkout→
