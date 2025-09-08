@@ -274,19 +274,19 @@ export default function App() {
         name="Abhishek"
         role="User"
         imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
-        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        quote="Finding a therapist who understands you can be tough. This app simplified the entire process, and I was able to connect with someone within a day. So grateful for this."
         />
       <TestimonialCard 
         name="Aman"
         role="User"
         imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
-        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        quote="I was hesitant to start therapy, but this platform made it so easy to find the right professional. Connecting with my therapist has been a truly life-changing experience."
         />
       <TestimonialCard 
         name="Namish"
         role="User"
         imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
-        quote="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, veniam voluptas accusamus pariatur modi nobis nesciunt sequi adipisci voluptatum."
+        quote="This platform gave me the tools and support I needed to navigate a difficult period in my life. I feel more confident and in control than ever before."
         />
     </div>
   </div>

@@ -14,7 +14,7 @@ export default function Footer() {
         "Support": [ 
             { name: "FAQs", href: "#" }, 
             { name: "Contact", href: "#" }, 
-            { name: "About Us", href: "#" }, 
+            { name: "About Us", href: "/about" }, 
         ],
     };
 

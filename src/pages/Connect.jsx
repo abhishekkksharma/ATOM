@@ -138,8 +138,10 @@ const PlusIcon = () => (
       </div>
     </div>
 
-
-<div className='bg-gray-50 dark:bg-gray-900 px-4 py-8 lg:justify-center md:p-8 md:-mx-14 flex gap-8 flex-nowrap overflow-x-auto'>
+<div className='font-bold text-2xl dark:text-white flex justify-center items-center'>
+  <p>People around You !</p>
+</div>
+<div className='bg-gray-50 dark:bg-transparent px-4 py-8 lg:justify-center md:p-8 md:-mx-14 flex gap-8 flex-nowrap overflow-x-auto'>
 
   {/* Card 1 */}
   <div className="bg-white dark:bg-black dark:border dark:border-gray-600 rounded-3xl shadow-lg w-full max-w-[260px] flex-shrink-0 p-4">
@@ -149,28 +151,28 @@ const PlusIcon = () => (
       <img 
         className="w-full h-full object-cover rounded-2xl" 
         src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
-        alt="Sophie Bennett profile picture"
+        alt="Rohan Mehra profile picture"
       />
     </div>
     
     {/* User Info */}
     <div className="text-left">
       <div className="flex items-center justify-start gap-2 mb-1">
-        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Sophie Bennett</h1>
+        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Rohan Mehra</h1>
         <VerifiedIcon />
       </div>
       <div>
       <p className="text-gray-500 text-sm leading-relaxed">
-        Product Designer who focuses on simplicity & usability.
+        Software Developer building scalable web applications.
       </p>
       <div className='flex gap-2 justify-center items-center m-2'>
         <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Chandigarh
+          Bengaluru
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Engineer
+        <p className="bg-green-100 w-fit font-semibold dark:bg-green-500 text-green-800 dark:text-green-50 px-2 rounded-full text-sm">
+          Developer
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
+        <p className="bg-yellow-100 w-fit font-semibold dark:bg-yellow-500 text-yellow-800 dark:text-yellow-50 px-2 rounded-full text-sm">
           Active
         </p>
       </div>
@@ -179,22 +181,22 @@ const PlusIcon = () => (
 
     {/* Horizontal Line Separator and Stats/Follow Button */}
     <div className="mt-5">
-        <div className="border-t border-gray-100 my-2"></div>
-        <div className="flex items-center justify-between text-gray-600">
+        <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
+        <div className="flex items-center justify-between text-gray-600 dark:text-gray-300">
             {/* Stats */}
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
                     <ConnectionsIcon />
-                    <span className="font-semibold text-sm">312</span>
+                    <span className="font-semibold text-sm">450</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <SavedIcon />
-                    <span className="font-semibold text-sm">48</span>
+                    <span className="font-semibold text-sm">102</span>
                 </div>
             </div>
 
             {/* Follow Button */}
-            <button className="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-800 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors text-gray-800 dark:text-gray-200 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
                 Follow
                 <PlusIcon />
             </button>
@@ -210,29 +212,29 @@ const PlusIcon = () => (
       <img 
         className="w-full h-full object-cover rounded-2xl" 
         src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
-        alt="Sophie Bennett profile picture"
+        alt="Priya Singh profile picture"
       />
     </div>
     
     {/* User Info */}
     <div className="text-left">
       <div className="flex items-center justify-start gap-2 mb-1">
-        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Sophie Bennett</h1>
+        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Priya Singh</h1>
         <VerifiedIcon />
       </div>
       <div>
       <p className="text-gray-500 text-sm leading-relaxed">
-        Product Designer who focuses on simplicity & usability.
+        Marketing Manager passionate about brand storytelling.
       </p>
       <div className='flex gap-2 justify-center items-center m-2'>
         <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Chandigarh
+          Mumbai
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Engineer
+        <p className="bg-green-100 w-fit font-semibold dark:bg-green-500 text-green-800 dark:text-green-50 px-2 rounded-full text-sm">
+          Marketing
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Active
+        <p className="bg-yellow-100 w-fit font-semibold dark:bg-yellow-500 text-yellow-800 dark:text-yellow-50 px-2 rounded-full text-sm">
+          Online
         </p>
       </div>
       </div>
@@ -240,22 +242,22 @@ const PlusIcon = () => (
 
     {/* Horizontal Line Separator and Stats/Follow Button */}
     <div className="mt-5">
-        <div className="border-t border-gray-100 my-2"></div>
-        <div className="flex items-center justify-between text-gray-600">
+        <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
+        <div className="flex items-center justify-between text-gray-600 dark:text-gray-300">
             {/* Stats */}
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
                     <ConnectionsIcon />
-                    <span className="font-semibold text-sm">312</span>
+                    <span className="font-semibold text-sm">890</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <SavedIcon />
-                    <span className="font-semibold text-sm">48</span>
+                    <span className="font-semibold text-sm">215</span>
                 </div>
             </div>
 
             {/* Follow Button */}
-            <button className="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-800 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors text-gray-800 dark:text-gray-200 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
                 Follow
                 <PlusIcon />
             </button>
@@ -271,29 +273,29 @@ const PlusIcon = () => (
       <img 
         className="w-full h-full object-cover rounded-2xl" 
         src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
-        alt="Sophie Bennett profile picture"
+        alt="Aarav Sharma profile picture"
       />
     </div>
     
     {/* User Info */}
     <div className="text-left">
       <div className="flex items-center justify-start gap-2 mb-1">
-        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Sophie Bennett</h1>
+        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Aarav Sharma</h1>
         <VerifiedIcon />
       </div>
       <div>
       <p className="text-gray-500 text-sm leading-relaxed">
-        Product Designer who focuses on simplicity & usability.
+        A doctor dedicated to providing compassionate patient care.
       </p>
       <div className='flex gap-2 justify-center items-center m-2'>
         <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Chandigarh
+          Delhi
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Engineer
+        <p className="bg-green-100 w-fit font-semibold dark:bg-green-500 text-green-800 dark:text-green-50 px-2 rounded-full text-sm">
+          Doctor
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Active
+        <p className="bg-yellow-100 w-fit font-semibold dark:bg-yellow-500 text-yellow-800 dark:text-yellow-50 px-2 rounded-full text-sm">
+          Available
         </p>
       </div>
       </div>
@@ -301,22 +303,22 @@ const PlusIcon = () => (
 
     {/* Horizontal Line Separator and Stats/Follow Button */}
     <div className="mt-5">
-        <div className="border-t border-gray-100 my-2"></div>
-        <div className="flex items-center justify-between text-gray-600">
+        <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
+        <div className="flex items-center justify-between text-gray-600 dark:text-gray-300">
             {/* Stats */}
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
                     <ConnectionsIcon />
-                    <span className="font-semibold text-sm">312</span>
+                    <span className="font-semibold text-sm">1.2k</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <SavedIcon />
-                    <span className="font-semibold text-sm">48</span>
+                    <span className="font-semibold text-sm">350</span>
                 </div>
             </div>
 
             {/* Follow Button */}
-            <button className="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-800 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors text-gray-800 dark:text-gray-200 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
                 Follow
                 <PlusIcon />
             </button>
@@ -332,29 +334,29 @@ const PlusIcon = () => (
       <img 
         className="w-full h-full object-cover rounded-2xl" 
         src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
-        alt="Sophie Bennett profile picture"
+        alt="Anika Gupta profile picture"
       />
     </div>
     
     {/* User Info */}
     <div className="text-left">
       <div className="flex items-center justify-start gap-2 mb-1">
-        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Sophie Bennett</h1>
+        <h1 className="text-lg font-bold text-gray-800 dark:text-white">Anika Gupta</h1>
         <VerifiedIcon />
       </div>
       <div>
       <p className="text-gray-500 text-sm leading-relaxed">
-        Product Designer who focuses on simplicity & usability.
+        Graphic Designer creating visually compelling narratives.
       </p>
       <div className='flex gap-2 justify-center items-center m-2'>
         <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Chandigarh
+          Panchkula
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Engineer
+        <p className="bg-green-100 w-fit font-semibold dark:bg-green-500 text-green-800 dark:text-green-50 px-2 rounded-full text-sm">
+          Designer
         </p>
-        <p className="bg-blue-100 w-fit font-semibold dark:bg-blue-500 text-blue-800 dark:text-blue-50 px-2 rounded-full text-sm">
-          Active
+        <p className="bg-yellow-100 w-fit font-semibold dark:bg-yellow-500 text-yellow-800 dark:text-yellow-50 px-2 rounded-full text-sm">
+          Freelance
         </p>
       </div>
       </div>
@@ -362,22 +364,22 @@ const PlusIcon = () => (
 
     {/* Horizontal Line Separator and Stats/Follow Button */}
     <div className="mt-5">
-        <div className="border-t border-gray-100 my-2"></div>
-        <div className="flex items-center justify-between text-gray-600">
+        <div className="border-t border-gray-100 dark:border-gray-700 my-2"></div>
+        <div className="flex items-center justify-between text-gray-600 dark:text-gray-300">
             {/* Stats */}
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1.5">
                     <ConnectionsIcon />
-                    <span className="font-semibold text-sm">312</span>
+                    <span className="font-semibold text-sm">620</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                     <SavedIcon />
-                    <span className="font-semibold text-sm">48</span>
+                    <span className="font-semibold text-sm">95</span>
                 </div>
             </div>
 
             {/* Follow Button */}
-            <button className="bg-gray-100 hover:bg-gray-200 transition-colors text-gray-800 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
+            <button className="bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors text-gray-800 dark:text-gray-200 font-semibold py-2 px-3 rounded-lg flex items-center text-sm">
                 Follow
                 <PlusIcon />
             </button>
