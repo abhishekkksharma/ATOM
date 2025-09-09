@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 import Comma from '../assets/Comma/image.png'
+import ProfilePic from '../assets/ProfilePic.png'
 
 export default function Connect() {
   const [activeTab, setActiveTab] = useState('community');
@@ -150,7 +151,7 @@ const PlusIcon = () => (
     <div className="aspect-square mb-2">
       <img 
         className="w-full h-full object-cover rounded-2xl" 
-        src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
+        src={ProfilePic}
         alt="Rohan Mehra profile picture"
       />
     </div>
@@ -211,7 +212,7 @@ const PlusIcon = () => (
     <div className="aspect-square mb-2">
       <img 
         className="w-full h-full object-cover rounded-2xl" 
-        src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
+        src={ProfilePic}
         alt="Priya Singh profile picture"
       />
     </div>
@@ -272,7 +273,7 @@ const PlusIcon = () => (
     <div className="aspect-square mb-2">
       <img 
         className="w-full h-full object-cover rounded-2xl" 
-        src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
+        src={ProfilePic}
         alt="Aarav Sharma profile picture"
       />
     </div>
@@ -333,7 +334,7 @@ const PlusIcon = () => (
     <div className="aspect-square mb-2">
       <img 
         className="w-full h-full object-cover rounded-2xl" 
-        src="https://i.pinimg.com/736x/7f/b6/05/7fb60538564ceef755080d388a5148ea.jpg" 
+        src={ProfilePic} 
         alt="Anika Gupta profile picture"
       />
     </div>
