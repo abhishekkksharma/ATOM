@@ -272,7 +272,7 @@ export default function ContactForm() {
               </div>
               <div className="text-white">
                 <h4 className="font-semibold text-xs">Address</h4>
-                <p className="text-gray-400 text-xs">Chandigargh, India</p>
+                <p className="text-gray-400 text-xs">Chandigarh, India</p>
               </div>
             </div>
           </div>

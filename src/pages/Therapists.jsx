@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TherapistsHeroSection from '../components/TherapistsHeroSection';
 
 // NOTE FOR DARK MODE: 
 // This component now supports dark mode. To enable it, add the `dark` class 
@@ -139,11 +140,15 @@ const TherapistFinderPage = () => {
     return (
         // The parent div inherits the body background color (e.g. bg-slate-50 dark:bg-slate-900)
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div>
+                <TherapistsHeroSection/>
+            </div>
+
             
-            <header className="text-center mb-10">
+            {/* <header className="text-center mb-10">
                 <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">Find Your Therapist</h1>
                 <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">Connect with licensed mental health professionals in India</p>
-            </header>
+            </header> */}
 
             <div className="space-y-6">
                 <div className="relative">
@@ -206,7 +211,6 @@ const TherapistFinderPage = () => {
                     <TherapistCard key={therapist.name} therapist={therapist} />
                 ))}
             </main>
-
         </div>
     );
 };
