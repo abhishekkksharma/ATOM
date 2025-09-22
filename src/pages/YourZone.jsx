@@ -33,13 +33,13 @@ export default function YourZone() {
       songSrc={Nature}
       songName="Nature calling"
       artistName="Mediatation" 
-      albumArtUrl={albumArt1}
+      albumArtUrl={albumArt3}
       />
       <MusicPlayer 
       songSrc={Freq528Hz}
       songName="Freq 528Hz"
       artistName="Instrumental" 
-      albumArtUrl={albumArt2}
+      albumArtUrl={albumArt3}
       />
       <MusicPlayer 
       songSrc={Nature}
