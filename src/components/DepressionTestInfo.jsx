@@ -11,7 +11,7 @@ const TestInfo = () => {
       <div className='mt-10'>
         <div className="flex flex-col gap-6 p-2 lg:p-20">
         <p className="font-semibold text-3xl">How Does It Work ?</p>
-        <p className='text-lg bg-gray-100 rounded-md p-4 text-justify text-gray-700'>
+        <p className='text-lg bg-gray-100 dark:bg-gray-800 dark:text-gray-50 rounded-md p-4 text-justify text-gray-700'>
           A Patient Health Questionnaire (PHQ) score is calculated by summing the responses to its questions, 
           resulting in a total score ranging from 0 to 27. These scores are categorized to assess the severity 
           of depression as follows: minimal (0–4), mild (5–9), moderate (10–14), moderately severe (15–19), 
