@@ -1,5 +1,5 @@
 import React from 'react';
-import MinimalIcon from "../assets/TestInfoIcons/minimal.png"
+import MinimalIcon from "../assets/TestInfoIcons/Minimal.png"
 import MildIcon from "../assets//TestInfoIcons/Mild.png"
 import Moderate from "../assets//TestInfoIcons/Moderate.png"
 import Moderately_severe from "../assets//TestInfoIcons/Moderately_severe.png"
