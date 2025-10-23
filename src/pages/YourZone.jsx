@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import MusicPlayer from './../components/musicplayer';
 import Nature from '../assets/MusicPlayer/songs/Nature.mp3';
-import Freq528Hz from '../assets/MusicPlayer/songs/528Hz.mp3'
-import albumArt1 from '../assets/MusicPlayer/albumcovers/songcovernature.png';
+import Freq528Hz from '../assets/MusicPlayer/songs/528Hz.mp3';
+import Peace from '../assets/MusicPlayer/songs/peace.mp3';
+import FreqCover from '../assets/MusicPlayer/albumcovers/frequency.png';
 import albumArt2 from '../assets/MusicPlayer/albumcovers/songcover2.png';
+import NatureCover from '../assets/MusicPlayer/albumcovers/Nature.png';
 import albumArt3 from '../assets/MusicPlayer/albumcovers/songcover3.png';
 import BreatheIn from  '../assets/Yourzone/BreathIn.png'
 import Hold from  '../assets/Yourzone/hold.png'
@@ -33,17 +35,17 @@ export default function YourZone() {
       songSrc={Nature}
       songName="Nature calling"
       artistName="Mediatation" 
-      albumArtUrl={albumArt3}
+      albumArtUrl={NatureCover}
       />
       <MusicPlayer 
       songSrc={Freq528Hz}
       songName="Freq 528Hz"
       artistName="Instrumental" 
-      albumArtUrl={albumArt3}
+      albumArtUrl={FreqCover}
       />
       <MusicPlayer 
-      songSrc={Nature}
-      songName="My Song"
+      songSrc={Peace}
+      songName="Peace"
       artistName="Relaxing" 
       albumArtUrl={albumArt3}
       />
