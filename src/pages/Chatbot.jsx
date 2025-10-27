@@ -220,7 +220,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="max-h-[80vh] font-sans flex flex-col items-center p-4 transition-colors duration-500 ">
+    <div id='chat' className="max-h-[80vh] font-sans flex flex-col items-center p-4 transition-colors duration-500 ">
       <div className="w-full max-w-2xl h-full max-h-[80vh] flex flex-col">
 
         {/* Header and Theme Toggle */}

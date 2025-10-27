@@ -297,7 +297,7 @@ export default function App() {
     </div>
 
     {/* Faq */}
-    <div>
+    <div id='faqs'>
       <FaqComponent/>
     </div>
     </>

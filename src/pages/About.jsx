@@ -8,7 +8,7 @@ import Face3 from '../assets/homepageIcons/New folder/D.png'
 export default function Chatbot() {
   return (
     <div >
-      <div className='flex justify-center items-center flex-col p-5 rounded-4xl gap-4 text-black dark:text-white'>
+      <div id='startAbout' className='flex justify-center items-center flex-col p-5 rounded-4xl gap-4 text-black dark:text-white'>
         <div className='flex '>
           <img className='w-20 z-10 -mx-4 h-20 border-4 border-gray-300 rounded-full' src={Face1} alt="" />
           <img className='w-20 z-20 h-20 border-4 border-gray-300 rounded-full' src={Face2} alt="" />
@@ -125,7 +125,7 @@ export default function Chatbot() {
       <h1 className='dark:text-white'>About</h1>
         </div>
       </div> */}
-      <div>
+      <div id='contact'>
       <ContactForm/>
       </div>
 
