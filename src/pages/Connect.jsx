@@ -10,7 +10,7 @@ export default function Connect() {
     const [city, setCity] = useState('');
   const [mapUrl, setMapUrl] = useState('');
 
-  const popularCities = ['Chandigargh', 'Mumbai', 'Goa', 'Paris', 'Sydney'];
+  const popularCities = ['Chandigarh', 'Mumbai', 'Goa', 'Paris', 'Sydney'];
 
   // Update the map URL based on the city
   const updateMap = useCallback((cityName) => {
@@ -23,7 +23,7 @@ export default function Connect() {
 
   useEffect(() => {
     // Set a default city on initial load
-    updateMap('Chandigargh');
+    updateMap('Chandigarh');
   }, [updateMap]);
 
   const handleSearch = (e) => {

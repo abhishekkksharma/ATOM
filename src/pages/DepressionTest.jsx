@@ -117,6 +117,7 @@ export default function DepressionAssessment() {
   };
   
   // Calculates the final score and persists it
+// ...existing code...
   const calculateResults = async () => {
     const totalScore = answers.reduce((sum, value) => sum + (value || 0), 0);
     setScore(totalScore);
@@ -128,16 +129,29 @@ export default function DepressionAssessment() {
     setSaveError(null);
     try {
       const interpretation = getInterpretation(totalScore);
-      const payload = {
-        user_id: user.id,
-        score: totalScore,
-        level: interpretation.level,
-        answers: answers, // json column
+
+      // --- Upsert profile (create/update profiles table) ---
+      const profilePayload = {
+        id: user.id,
+        full_name: user.user_metadata?.full_name || user.user_metadata?.name || '',
+        email: user.email,
+        gender: user.user_metadata?.gender || null,
+        age: user.user_metadata?.age ? Number(user.user_metadata.age) : null,
+        city: user.user_metadata?.city || null
       };
 
+      // upsert will create or update the profile row
+      await supabase.from('profiles').upsert(profilePayload, { returning: 'minimal' });
+
+      // --- Insert the depression score referencing profile/user ---
       const { data, error } = await supabase
         .from('depression_scores')
-        .insert([payload])
+        .insert([{
+          user_id: user.id,
+          score: totalScore,
+          level: interpretation.level,
+          answers: answers
+        }])
         .select()
         .single();
 
@@ -154,7 +168,7 @@ export default function DepressionAssessment() {
       setSaving(false);
     }
   };
-  
+// ...existing code...  
   // Resets the quiz to its initial state
   const retakeQuiz = () => {
       setCurrentQuestionIndex(0);
