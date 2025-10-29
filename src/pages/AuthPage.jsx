@@ -1,5 +1,9 @@
+// ...existing code...
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider'; // added
 
+// ...existing code...
 // Reusable Input component with error handling
 const Input = ({ id, type, placeholder, icon, value, onChange, error }) => (
     <div>
@@ -26,42 +30,7 @@ const Input = ({ id, type, placeholder, icon, value, onChange, error }) => (
     </div>
 );
 
-// Reusable Select component with error handling
-const Select = ({ id, options, placeholder, icon, value, onChange, error }) => (
-    <div>
-        <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                {icon}
-            </div>
-            <select
-                id={id}
-                name={id}
-                value={value}
-                onChange={onChange}
-                required
-                className={`w-full pl-10 pr-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 appearance-none ${
-                    error
-                        ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
-                        : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
-                }`}
-            >
-                <option value="" disabled className="text-slate-400 dark:text-slate-500">
-                    {placeholder}
-                </option>
-                {options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <ChevronDownIcon />
-            </div>
-        </div>
-        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
-    </div>
-);
-
+// ...existing code...
 // --- SVG Icons (Unchanged) ---
 const UserIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,8 +77,8 @@ const ChevronDownIcon = () => (
 // --- End SVG Icons ---
 
 
-// Main App Component (Renamed from AuthPage)
-const App = () => {
+// Main AuthPage Component (keeps UI identical)
+const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
         username: '',
@@ -121,6 +90,10 @@ const App = () => {
     });
     // State to hold validation errors
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false); // added
+
+    const navigate = useNavigate(); // added
+    const { signIn, signUp } = useAuth(); // added - expects AuthProvider in your app
 
     const handleInputChange = (e) => {
         setFormData({
@@ -137,7 +110,7 @@ const App = () => {
         }
     };
 
-    // Validation logic
+    // Validation logic (unchanged)
     const validateForm = () => {
         const newErrors = {};
         
@@ -161,7 +134,7 @@ const App = () => {
                 newErrors.username = 'Username is required.';
             }
             if (!formData.gender) {
-                newErrors.gender = 'Please select your gender.';
+                newErrors.gender = 'Please select your gender.'; 
             }
             if (!formData.age) {
                 newErrors.age = 'Please select your age.';
@@ -172,28 +145,81 @@ const App = () => {
         }
         
         setErrors(newErrors);
-        // Return true if the newErrors object is empty (no errors)
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Validate the form before submitting
-        if (validateForm()) {
-            console.log(isLogin ? 'Login Data:' : 'Sign Up Data:', formData);
-            // Here you would typically send data to a server
-            
-            // Reset form and errors after successful submission
-            setFormData({
-                username: '', email: '', password: '',
-                gender: '', age: '', city: ''
-            });
-            setErrors({});
-            alert(isLogin ? 'Login Successful!' : 'Sign Up Successful!'); // Using alert as placeholder for success message
-        } else {
-            console.log('Validation failed. Please check errors.');
+        if (!validateForm()) return;
+
+        setLoading(true);
+        try {
+            if (isLogin) {
+                // signIn expects your AuthProvider to call supabase.auth.signInWithPassword
+                const { error } = await signIn({ email: formData.email, password: formData.password });
+                if (error) {
+                    throw error;
+                }
+                // successful login
+                navigate('/');
+            } else {
+                // signup: pass data as metadata (AuthProvider should forward to supabase options.data)
+                const metadata = {
+                    full_name: formData.username,
+                    gender: formData.gender,
+                    age: formData.age,
+                    city: formData.city
+                };
+                const { error } = await signUp({ email: formData.email, password: formData.password, metadata });
+                if (error) {
+                    throw error;
+                }
+                // Supabase may require email confirmation depending on your settings
+                alert('Sign up successful. Check your email if confirmation is required.');
+                navigate('/');
+            }
+        } catch (err) {
+            const msg = err?.message || 'Authentication error';
+            alert(msg);
+        } finally {
+            setLoading(false);
         }
     };
+    // ...existing code...
+const Select = ({ id, options = [], placeholder, icon, value, onChange, error }) => (
+    <div>
+        <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                {icon}
+            </div>
+
+            <select
+                id={id}
+                name={id}
+                value={value}
+                onChange={onChange}
+                className={`w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
+                    error
+                        ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
+                        : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
+                }`}
+            >
+                <option value="">{placeholder}</option>
+                {options.map(opt => (
+                    <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                    </option>
+                ))}
+            </select>
+
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <ChevronDownIcon />
+            </div>
+        </div>
+        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
+    </div>
+);
+// ...existing code...
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
@@ -233,7 +259,6 @@ const App = () => {
         { value: 'pune', label: 'Pune' },
         { value: 'jaipur', label: 'Jaipur' },
         { value: 'other', label: 'Other' }
-        // Truncated city list for brevity
     ];
     // --- End Options ---
 
@@ -346,9 +371,10 @@ const App = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-800 transition-all transform hover:scale-105"
+                                disabled={loading}
+                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-800 transition-all transform hover:scale-105 disabled:opacity-60"
                             >
-                                {isLogin ? 'Sign In' : 'Create Account'}
+                                {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
                             </button>
                         </div>
                     </form>
@@ -365,4 +391,5 @@ const App = () => {
     );
 };
 
-export default App;
+export default AuthPage;
+// ...existing code...

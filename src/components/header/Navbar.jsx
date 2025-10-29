@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { icons } from './icons';
 import NavLink from './NavLink';
-import MobileNavLink from './MobileNavLink';
+import MobileNavLink, { MobileLoginSection } from './MobileNavLink';
 import ThemeToggle from './ThemeToggle';
 import logo from '../../assets/logo2.png';
+import LoginSignUpButton from '../LoginSignUpButton';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,6 +20,8 @@ export default function Navbar() {
     { name: 'Connect', icon: 'Link', href: '/connect' },
     { name: 'About', icon: 'Link', href: '/about' },
   ];
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-to-b from-white/70 to-transparent dark:from-black/70 dark:to-transparent backdrop-blur-lg/2">
@@ -42,13 +45,9 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            {/* Changed from button to Link */}
-            <Link 
-              to="/auth" 
-              className="hidden md:flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300/50 dark:border-gray-700/50 h-10 px-6 py-2 bg-white/60 hover:bg-gray-100/60 dark:bg-black/60 dark:hover:bg-gray-800/60 text-gray-900 dark:text-gray-100"
-            >
-              Login / Sign Up
-            </Link>
+            {/* Desktop Login Button - REMOVED the Link wrapper */}
+            <LoginSignUpButton />
+            
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden inline-flex items-center justify-center rounded-full p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100/60 dark:hover:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
@@ -67,15 +66,9 @@ export default function Navbar() {
               <MobileNavLink key={link.name} {...link} isActive={location.pathname === link.href} />
             ))}
           </div>
-          <div className="border-t border-gray-200/50 dark:border-gray-800/50 px-4 py-3">
-            {/* Changed mobile button to Link as well */}
-            <Link 
-              to="/auth" 
-              className="w-full flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300/50 dark:border-gray-700/50 h-10 px-4 py-2 bg-white/60 hover:bg-gray-100/60 dark:bg-black/60 dark:hover:bg-gray-800/60 text-gray-900 dark:text-gray-100"
-              onClick={() => setIsMobileMenuOpen(false)} // Close mobile menu on click
-            >
-              Login / Sign Up
-            </Link>
+          <div className="border-t border-gray-200/50 dark:border-gray-800/50 py-3">
+            {/* Mobile Login Section - using the new component */}
+            <MobileLoginSection onNavigate={closeMobileMenu} />
           </div>
         </div>
       )}
