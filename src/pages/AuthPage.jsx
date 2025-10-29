@@ -5,31 +5,65 @@ import { useAuth } from '../context/AuthProvider'; // added
 
 // ...existing code...
 // Reusable Input component with error handling
-const Input = ({ id, type, placeholder, icon, value, onChange, error }) => (
-    <div>
-        <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {icon}
-            </div>
-            <input
-                id={id}
-                name={id}
-                type={type}
-                value={value}
-                onChange={onChange}
-                required
-                className={`w-full pl-10 pr-4 py-2 border rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
-                    error
-                        ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
-                        : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
-                }`}
-                placeholder={placeholder}
-            />
-        </div>
-        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
-    </div>
-);
+// ...existing code...
+const Input = ({ id, type, placeholder, icon, value, onChange, error }) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const isPassword = type === 'password';
 
+    return (
+        <div>
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    {icon}
+                </div>
+                <input
+                    id={id}
+                    name={id}
+                    type={isPassword ? (showPassword ? 'text' : 'password') : type}
+                    value={value}
+                    onChange={onChange}
+                    required
+                    className={`w-full pl-10 ${isPassword ? 'pr-12' : 'pr-4'} py-2 border rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
+                        error
+                            ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
+                            : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
+                    }`}
+                    placeholder={placeholder}
+                />
+
+                {isPassword && (
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setShowPassword((s) => !s);
+                        }}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 focus:outline-none"
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                        {showPassword ? (
+                            // eye-off icon
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3-11-7 1.05-2.07 2.7-3.8 4.73-5.01"></path>
+                                <path d="M1 1l22 22"></path>
+                                <path d="M9.88 9.88A3 3 0 0 0 14.12 14.12"></path>
+                            </svg>
+                        ) : (
+                            // eye icon
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        )}
+                    </button>
+                )}
+            </div>
+            {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
+        </div>
+    );
+};
+// ...existing code...
 // ...existing code...
 // --- SVG Icons (Unchanged) ---
 const UserIcon = () => (

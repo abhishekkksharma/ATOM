@@ -1,6 +1,11 @@
+// ...existing code...
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import send from '../assets/chatbotpage/send.png';
 import chatbotIcon from '../assets/chatbotpage/chatbot.png';
+import { useAuth } from '../context/AuthProvider';
+import LoginSignUpButton from '../components/LoginSignUpButton';
+import LoginRequired from '../components/LoginRequired';
 // import logo from '/public/logo.png'
 
 // Helper component for SVG icons
@@ -74,7 +79,19 @@ const FormattedText = ({ text }) => {
 
 // Main Chatbot Component
 const Chatbot = () => {
-  // State management
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // If user is not logged in, show a prompt and the shared LoginSignUpButton (mobile + desktop)
+  if (!user) {
+    return (
+      <div id='chat' className="font-sans text-slate-800 dark:text-slate-200 antialiased transition-colors duration-300 p-4">
+        <LoginRequired />
+      </div>
+    );
+  }
+
+  // State management for logged-in chat UI
   const [messages, setMessages] = useState([
     { sender: 'bot', text: "Hello! How can I assist you today?" }
   ]);
@@ -85,6 +102,7 @@ const Chatbot = () => {
   const [speechSupported, setSpeechSupported] = useState(false);
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   // Check for speech recognition support and initialize
   useEffect(() => {
@@ -119,7 +137,6 @@ const Chatbot = () => {
   }, []);
 
   // Effect to scroll to the latest message
-  const chatContainerRef = useRef(null);
   useEffect(() => {
     const chatContainer = chatContainerRef.current;
     if (chatContainer) {
@@ -185,7 +202,6 @@ const Chatbot = () => {
       // --- API Call to OpenRouter ---
       // IMPORTANT: Replace "YOUR_OPENROUTER_API_KEY" with your actual key.
       const getapi = import.meta.env.VITE_API_KEY;
-      // console.log("API key : ", getapi);
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: "POST",
         headers: {
@@ -239,8 +255,7 @@ const Chatbot = () => {
             {messages.map((msg, index) => (
               <div key={index} className={`flex items-start gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.sender === 'bot' && (
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300"> {/* bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300*/}
-                    {/* <Icon name="bot" className="w-6 h-6" /> */}
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     <img className='w-10 h-auto rounded-full' src={chatbotIcon} alt="" />
                   </div>
                 )}
@@ -259,7 +274,6 @@ const Chatbot = () => {
             {isLoading && (
               <div className="flex items-start gap-3 justify-start">
                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
-                    {/* <Icon name="bot" className="w-6 h-6" /> */}
                     <img className='w-10 h-auto rounded-full' src={chatbotIcon} alt="" />
                   </div>
                 <div className="px-4 py-3 rounded-2xl rounded-bl-lg bg-gray-200 dark:bg-gray-700">
@@ -312,11 +326,7 @@ const Chatbot = () => {
                   <button
                     type="button"
                     onClick={toggleSpeechRecognition}
-                    className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-all duration-200 ${
-                      isListening 
-                        ? 'bg-red-100 text-red-600 hover:bg-red-200 animate-pulse' 
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500'
-                    }`}
+                    className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full transition-all duration-200 ${isListening ? 'bg-red-100 text-red-600 hover:bg-red-200 animate-pulse' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500'}`}
                     disabled={isLoading}
                     title={isListening ? "Stop recording" : "Start voice input"}
                   >
