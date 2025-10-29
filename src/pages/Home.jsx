@@ -17,7 +17,7 @@ export default function App() {
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
   const copyText = (e) => {
-    navigator.clipboard.writeText(`Hey! I just came across this awesome page and thought you’d like it too. Check it out: https://atom-beryl.vercel.app/`)
+    navigator.clipboard.writeText(`Hey! I just came across this awesome page and thought you’d like it too. Check it out: https://atomconnect.me/`)
       .then(() => {
         const originalText = e.target.textContent; 
         e.target.textContent = "Link Copied!"; 

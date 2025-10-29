@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import TestInfo from '../components/DepressionTestInfo';
+import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import LoginRequired from '../components/LoginRequired';
 
 // Icon component to display the result visually
 const ResultIcon = ({ level }) => {
@@ -54,6 +58,9 @@ const ResultIcon = ({ level }) => {
 
 // Main Component for the Depression Self-Assessment
 export default function DepressionAssessment() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const questions = [
     { text: "Little interest or pleasure in doing things" },
     { text: "Feeling down, depressed, or hopeless" },
@@ -77,6 +84,9 @@ export default function DepressionAssessment() {
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
+  const [saving, setSaving] = useState(false);
+  const [savedId, setSavedId] = useState(null);
+  const [saveError, setSaveError] = useState(null);
 
   // Handles the user selecting an answer
   const handleAnswer = (value) => {
@@ -86,6 +96,12 @@ export default function DepressionAssessment() {
   };
 
   const handleNext = () => {
+    if (!user) {
+      // if not logged in, prompt to login before proceeding
+      navigate('/auth', { state: { from: '/depression-test' } });
+      return;
+    }
+
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -100,10 +116,43 @@ export default function DepressionAssessment() {
     }
   };
   
-  // Calculates the final score
-  const calculateResults = () => {
+  // Calculates the final score and persists it
+  const calculateResults = async () => {
     const totalScore = answers.reduce((sum, value) => sum + (value || 0), 0);
     setScore(totalScore);
+
+    // Save to Supabase only if user is logged in
+    if (!user) return;
+
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const interpretation = getInterpretation(totalScore);
+      const payload = {
+        user_id: user.id,
+        score: totalScore,
+        level: interpretation.level,
+        answers: answers, // json column
+      };
+
+      const { data, error } = await supabase
+        .from('depression_scores')
+        .insert([payload])
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Failed to save score', error);
+        setSaveError(error.message || 'Save failed');
+      } else {
+        setSavedId(data.id);
+      }
+    } catch (err) {
+      console.error('Save exception', err);
+      setSaveError(err.message || 'Save failed');
+    } finally {
+      setSaving(false);
+    }
   };
   
   // Resets the quiz to its initial state
@@ -112,6 +161,8 @@ export default function DepressionAssessment() {
       setAnswers(Array(questions.length).fill(null));
       setShowResults(false);
       setScore(0);
+      setSavedId(null);
+      setSaveError(null);
   };
 
   // Determines the interpretation text based on the score
@@ -126,6 +177,22 @@ export default function DepressionAssessment() {
   const interpretation = getInterpretation(score);
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
   const isCurrentQuestionAnswered = answers[currentQuestionIndex] !== null;
+
+  // If user is not logged in, show a prompt and disable the test
+  if (!user) {
+    return (
+      <div id='test' className="font-sans text-slate-800 dark:text-slate-200 antialiased transition-colors duration-300">
+        <div className="container mx-auto px-4 flex flex-col items-center">
+          <header className="text-center">
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Depression Self-Assessment</h1>
+              <p className="mt-2 text-md text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">You must be logged in to take this test and have your results saved.</p>
+          </header>
+        <LoginRequired/>
+        </div>
+        <TestInfo />
+      </div>
+    );
+  }
 
   return (
     <div id='test' className="font-sans text-slate-800 dark:text-slate-200 antialiased transition-colors duration-300">
@@ -197,16 +264,35 @@ export default function DepressionAssessment() {
                         <p className="text-6xl md:text-7xl font-bold text-indigo-600 dark:text-indigo-500">{score}</p>
                         <p className="text-xl font-semibold text-slate-800 dark:text-slate-200 mt-2">{interpretation.level} Depression</p>
                     </div>
+
+                    {saving ? (
+                      <p className="text-sm text-slate-500 mb-4">Saving your result...</p>
+                    ) : savedId ? (
+                      <p className="text-sm text-green-600 mb-4">Result saved.</p>
+                    ) : saveError ? (
+                      <p className="text-sm text-red-600 mb-4">Failed to save: {saveError}</p>
+                    ) : (
+                      <p className="text-sm text-slate-500 mb-4">Result not saved yet.</p>
+                    )}
+
                     <p className="text-md text-slate-700 dark:text-slate-300 mb-6 max-w-md mx-auto">{interpretation.text}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-8">
                         <strong>Disclaimer:</strong> This result is not a diagnosis. A doctor or therapist can help you understand these results and discuss your mental health.
                     </p>
-                    <button
-                        onClick={retakeQuiz}
-                        className="w-full md:w-auto bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
-                    >
-                        Take the Test Again
-                    </button>
+                    <div className="flex flex-col md:flex-row gap-4 justify-center">
+                      <button
+                          onClick={retakeQuiz}
+                          className="w-full md:w-auto bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+                      >
+                          Take the Test Again
+                      </button>
+                      <button
+                        onClick={() => navigate('/your-zone')}
+                        className="w-full md:w-auto bg-slate-200 text-slate-900 font-bold py-3 px-8 rounded-lg hover:bg-slate-300 transition-colors duration-300"
+                      >
+                        Go to Your Zone
+                      </button>
+                    </div>
                 </div>
             )}
         </main>
@@ -215,5 +301,3 @@ export default function DepressionAssessment() {
     </div>
   );
 }
-
-
