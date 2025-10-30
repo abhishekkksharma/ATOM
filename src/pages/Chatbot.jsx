@@ -6,6 +6,7 @@ import chatbotIcon from '../assets/chatbotpage/chatbot.png';
 import { useAuth } from '../context/AuthProvider';
 import LoginSignUpButton from '../components/LoginSignUpButton';
 import LoginRequired from '../components/LoginRequired';
+import { supabase } from '../lib/supabaseClient';
 // import logo from '/public/logo.png'
 
 // Helper component for SVG icons
@@ -92,17 +93,59 @@ const Chatbot = () => {
   }
 
   // State management for logged-in chat UI
-  const [messages, setMessages] = useState([
-    { sender: 'bot', text: "Hello! How can I assist you today?" }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [chatInitiated, setChatInitiated] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const [conversationId, setConversationId] = useState(null);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const chatContainerRef = useRef(null);
+
+  // Generate or retrieve conversation ID
+  useEffect(() => {
+    // Try to get existing conversation ID from localStorage
+    const storedConvId = localStorage.getItem('conversation_id');
+    if (storedConvId) {
+      setConversationId(storedConvId);
+    } else {
+      // Generate new conversation ID
+      const newConvId = crypto.randomUUID();
+      localStorage.setItem('conversation_id', newConvId);
+      setConversationId(newConvId);
+    }
+  }, []);
+
+  // Initialize with welcome message
+  useEffect(() => {
+    setMessages([{ sender: 'bot', text: "Hello! How can I assist you today?" }]);
+    setIsLoadingHistory(false);
+  }, []);
+
+  // Function to save message to Supabase
+  const saveMessageToDatabase = async (role, content) => {
+    if (!conversationId || !user) return;
+
+    try {
+      const { error } = await supabase
+        .from('chat_messages')
+        .insert({
+          conversation_id: conversationId,
+          user_id: user.id,
+          role: role, // 'user' or 'assistant'
+          content: content
+        });
+
+      if (error) {
+        console.error('Error saving message:', error);
+      }
+    } catch (error) {
+      console.error('Error in saveMessageToDatabase:', error);
+    }
+  };
 
   // Check for speech recognition support and initialize
   useEffect(() => {
@@ -186,6 +229,9 @@ const Chatbot = () => {
     setInputValue('');
     setIsLoading(true);
 
+    // Save user message to database (only user messages)
+    await saveMessageToDatabase('user', messageText);
+
     // Prepare the conversation history for the API with the system prompt
     const conversationHistory = [
         { 
@@ -200,7 +246,6 @@ const Chatbot = () => {
 
     try {
       // --- API Call to OpenRouter ---
-      // IMPORTANT: Replace "YOUR_OPENROUTER_API_KEY" with your actual key.
       const getapi = import.meta.env.VITE_API_KEY;
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: "POST",
@@ -209,7 +254,7 @@ const Chatbot = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({  
-          model: "deepseek/deepseek-chat", // Using DeepSeek model
+          model: "deepseek/deepseek-chat",
           messages: conversationHistory,
           max_tokens: 500,
           temperature: 0.7
@@ -226,14 +271,27 @@ const Chatbot = () => {
       // Add bot response to the chat
       setMessages(prev => [...prev, { sender: 'bot', text: botReply }]);
 
+      // Bot messages are NOT saved to database - only user inputs are stored
+
     } catch (error) {
       console.error("Error fetching from OpenRouter:", error);
-      // Display an error message to the user in the chat
-      setMessages(prev => [...prev, { sender: 'bot', text: "Sorry, I'm having trouble connecting. Please try again later." }]);
+      const errorMessage = "Sorry, I'm having trouble connecting. Please try again later.";
+      setMessages(prev => [...prev, { sender: 'bot', text: errorMessage }]);
+      
+      // Error messages are also NOT saved to database
     } finally {
       setIsLoading(false);
     }
   };
+
+  // Show loading state while initializing
+  if (isLoadingHistory) {
+    return (
+      <div id='chat' className="max-h-[80vh] font-sans flex flex-col items-center justify-center p-4 transition-colors duration-500">
+        <div className="text-gray-600 dark:text-gray-400">Initializing chat...</div>
+      </div>
+    );
+  }
 
   return (
     <div id='chat' className="max-h-[80vh] font-sans flex flex-col items-center p-4 transition-colors duration-500 ">
@@ -244,7 +302,6 @@ const Chatbot = () => {
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             Ask anything
           </h1>
-          {/* Note: You'll need to hook up your own theme toggling logic to this button */}
         </header>
 
         {/* Chat Container with Glass Effect */}
@@ -339,7 +396,6 @@ const Chatbot = () => {
                 disabled={isLoading || !inputValue.trim()} 
                 className="p-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700"
               >
-                {/* <Icon name="send" className="w-6 h-6" /> */}
                 <img className='w-6 h-6' src={send} alt="" />
               </button>
             </div>
