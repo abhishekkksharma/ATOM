@@ -210,7 +210,8 @@ const AuthPage = () => {
                 }
                 // Supabase may require email confirmation depending on your settings
                 alert('Sign up successful. Check your email if confirmation is required.');
-                navigate('/');
+                navigate('/auth');
+                window.location.reload();
             }
         } catch (err) {
             const msg = err?.message || 'Authentication error';
