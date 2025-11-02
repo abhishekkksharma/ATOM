@@ -7,7 +7,7 @@ import Doodle from "../../assets/doodle.png"
 function Hero() {
   return (
     <>
-    <div className='mb-100'>
+    <div className='md:mb-30 mb-10'>
         <div className='flex justify-between items-center rounded-4xl'>
           <p className='text-blue-100 dark:text-blue-200 font-bold text-4xl md:text-8xl lg:text-9xl '>Share Thoughts</p>
           <img className='h-50 md:h-120 top-10 dark:opacity-40' src={Doodle} alt="" />
