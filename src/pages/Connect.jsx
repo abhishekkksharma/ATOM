@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 import Comma from '../assets/Comma/image.png'
 import ProfilePic from '../assets/ProfilePic.png'
+import HappyStudents from '../components/ConnectPage/herosection';
+import Hero from '../components/ConnectPage/Hero';
+import ShareStoriesPage from '../components/ShareStories';
 
 export default function Connect() {
   const [activeTab, setActiveTab] = useState('community');
@@ -65,6 +68,9 @@ const PlusIcon = () => (
   return (
     <>
     <div className="mb-10 p-4 sm:p-8 font-sans transition-colors duration-300">
+      {/* <HappyStudents/> */}
+      <Hero/>
+      <ShareStoriesPage/>
       <div className="container mx-auto max-w-7xl rounded-3xl bg-white dark:bg-gray-900/50 backdrop-blur-sm shadow-2xl p-6 sm:p-10">
         
         {/* Header */}
