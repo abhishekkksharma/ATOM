@@ -102,11 +102,9 @@ function LoginSignUpButton({
               onClick={async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                try {
-                  await onLogoutClick();
-                } finally {
-                  setIsDropdownOpen(false);
-                }
+                setIsDropdownOpen(false);
+                await signOut(); // logout and clear user
+                navigate('/'); // redirect to home
               }}
               className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               role="menuitem"
@@ -114,6 +112,7 @@ function LoginSignUpButton({
             >
               Logout
             </button>
+
           </div>
         )}
       </div>
