@@ -11,6 +11,7 @@ import Connect from './pages/Connect';
 import About from './pages/About';
 import AuthPage from './pages/AuthPage';
 import { useAuth } from './context/AuthProvider'; // added
+import ResetPassword from './pages/ResetPassword'; //changed
 
 // ...existing code...
 export default function App() {
@@ -36,7 +37,8 @@ export default function App() {
           <Route path="/connect" element={<div className={values}><Connect /></div>} />
           <Route path="/about" element={<div className={values}><About /></div>} />
           <Route path="/auth" element={<div className={values}><AuthPage /></div>} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/reset-password" element={<ResetPassword />} /> 
+          <Route path="*" element={<Navigate to="/" replace />} /> 
         </Routes>
       </main>
       <Footer />

@@ -5,7 +5,6 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    // Load cached user immediately for better UX
     const cached = localStorage.getItem('cachedUser');
     return cached ? JSON.parse(cached) : null;
   });
@@ -26,7 +25,6 @@ export function AuthProvider({ children }) {
     };
     loadSession();
 
-    // Listen for auth state changes
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       const nextUser = session?.user ?? null;
       if (!mounted) return;
@@ -54,14 +52,19 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error('Sign-out error:', err);
     } finally {
-      // Ensure full cleanup even if Supabase signOut fails
       setUser(null);
       localStorage.removeItem('cachedUser');
     }
   };
 
+  const resetPassword = async (email) => {
+    return supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut, resetPassword }}>
       {!loading && children}
     </AuthContext.Provider>
   );

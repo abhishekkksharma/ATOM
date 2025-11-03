@@ -1,11 +1,10 @@
-// ...existing code...
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider'; // added
+import { useAuth } from '../context/AuthProvider';
 
-// ...existing code...
-// Reusable Input component with error handling
-// ...existing code...
+// ============================================
+// REUSABLE INPUT COMPONENT
+// ============================================
 const Input = ({ id, type, placeholder, icon, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === 'password';
@@ -43,14 +42,12 @@ const Input = ({ id, type, placeholder, icon, value, onChange, error }) => {
                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                         {showPassword ? (
-                            // eye-off icon
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-5 0-9.27-3-11-7 1.05-2.07 2.7-3.8 4.73-5.01"></path>
                                 <path d="M1 1l22 22"></path>
                                 <path d="M9.88 9.88A3 3 0 0 0 14.12 14.12"></path>
                             </svg>
                         ) : (
-                            // eye icon
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                 <circle cx="12" cy="12" r="3"></circle>
@@ -63,9 +60,47 @@ const Input = ({ id, type, placeholder, icon, value, onChange, error }) => {
         </div>
     );
 };
-// ...existing code...
-// ...existing code...
-// --- SVG Icons (Unchanged) ---
+
+// ============================================
+// REUSABLE SELECT COMPONENT
+// ============================================
+const Select = ({ id, options = [], placeholder, icon, value, onChange, error }) => (
+    <div>
+        <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                {icon}
+            </div>
+
+            <select
+                id={id}
+                name={id}
+                value={value}
+                onChange={onChange}
+                className={`w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
+                    error
+                        ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
+                        : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
+                }`}
+            >
+                <option value="">{placeholder}</option>
+                {options.map(opt => (
+                    <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                    </option>
+                ))}
+            </select>
+
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <ChevronDownIcon />
+            </div>
+        </div>
+        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
+    </div>
+);
+
+// ============================================
+// SVG ICONS
+// ============================================
 const UserIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -108,10 +143,129 @@ const ChevronDownIcon = () => (
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
     </svg>
 );
-// --- End SVG Icons ---
 
+// ============================================
+// FORGOT PASSWORD MODAL COMPONENT
+// ============================================
+const ForgotPasswordModal = ({ isOpen, onClose }) => {
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+    const { resetPassword } = useAuth();
 
-// Main AuthPage Component (keeps UI identical)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        
+        if (!email) {
+            setError('Email is required');
+            return;
+        }
+        
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const { error } = await resetPassword(email);
+            if (error) throw error;
+            setSuccess(true);
+        } catch (err) {
+            setError(err.message || 'Failed to send reset email');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleClose = () => {
+        setEmail('');
+        setError('');
+        setSuccess(false);
+        onClose();
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-md w-full p-8 relative">
+                <button
+                    onClick={handleClose}
+                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                >
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                {!success ? (
+                    <>
+                        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">
+                            Reset Password
+                        </h2>
+                        <p className="text-slate-500 dark:text-slate-400 mb-6">
+                            Enter your email address and we'll send you a link to reset your password.
+                        </p>
+
+                        <div className="space-y-4">
+                            <Input
+                                id="reset-email"
+                                type="email"
+                                placeholder="Email Address"
+                                icon={<MailIcon />}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                error={error}
+                            />
+
+                            <button
+                                onClick={handleSubmit}
+                                disabled={loading}
+                                className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-105 disabled:opacity-60"
+                            >
+                                {loading ? 'Sending...' : 'Send Reset Link'}
+                            </button>
+
+                            <button
+                                onClick={handleClose}
+                                className="w-full py-3 px-4 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none transition-all"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <div className="text-center">
+                        <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 mb-4">
+                            <svg className="h-6 w-6 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100 mb-2">
+                            Check your email
+                        </h3>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+                            We've sent a password reset link to <strong>{email}</strong>
+                        </p>
+                        <button
+                            onClick={handleClose}
+                            className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-all"
+                        >
+                            Got it
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+// ============================================
+// MAIN AUTHPAGE COMPONENT
+// ============================================
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [formData, setFormData] = useState({
@@ -122,12 +276,12 @@ const AuthPage = () => {
         age: '',
         city: ''
     });
-    // State to hold validation errors
     const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false); // added
+    const [loading, setLoading] = useState(false);
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
 
-    const navigate = useNavigate(); // added
-    const { signIn, signUp } = useAuth(); // added - expects AuthProvider in your app
+    const navigate = useNavigate();
+    const { signIn, signUp } = useAuth();
 
     const handleInputChange = (e) => {
         setFormData({
@@ -135,7 +289,6 @@ const AuthPage = () => {
             [e.target.name]: e.target.value
         });
         
-        // Clear the error for the field being edited
         if (errors[e.target.name]) {
             setErrors({
                 ...errors,
@@ -144,25 +297,21 @@ const AuthPage = () => {
         }
     };
 
-    // Validation logic (unchanged)
     const validateForm = () => {
         const newErrors = {};
         
-        // Email validation
         if (!formData.email) {
             newErrors.email = 'Email is required.';
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = 'Email address is invalid.';
         }
         
-        // Password validation
         if (!formData.password) {
             newErrors.password = 'Password is required.';
         } else if (formData.password.length < 8) {
             newErrors.password = 'Password must be at least 8 characters.';
         }
 
-        // Sign Up specific validations
         if (!isLogin) {
             if (!formData.username.trim()) {
                 newErrors.username = 'Username is required.';
@@ -189,15 +338,12 @@ const AuthPage = () => {
         setLoading(true);
         try {
             if (isLogin) {
-                // signIn expects your AuthProvider to call supabase.auth.signInWithPassword
                 const { error } = await signIn({ email: formData.email, password: formData.password });
                 if (error) {
                     throw error;
                 }
-                // successful login
                 navigate('/');
             } else {
-                // signup: pass data as metadata (AuthProvider should forward to supabase options.data)
                 const metadata = {
                     full_name: formData.username,
                     gender: formData.gender,
@@ -208,7 +354,6 @@ const AuthPage = () => {
                 if (error) {
                     throw error;
                 }
-                // Supabase may require email confirmation depending on your settings
                 alert('Sign up successful. Check your email if confirmation is required.');
                 navigate('/auth');
                 window.location.reload();
@@ -220,45 +365,9 @@ const AuthPage = () => {
             setLoading(false);
         }
     };
-    // ...existing code...
-const Select = ({ id, options = [], placeholder, icon, value, onChange, error }) => (
-    <div>
-        <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {icon}
-            </div>
-
-            <select
-                id={id}
-                name={id}
-                value={value}
-                onChange={onChange}
-                className={`w-full pl-10 pr-10 py-2 border rounded-md shadow-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 ${
-                    error
-                        ? 'border-red-500 dark:border-red-400 focus:ring-red-500 focus:border-red-500'
-                        : 'border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500'
-                }`}
-            >
-                <option value="">{placeholder}</option>
-                {options.map(opt => (
-                    <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                    </option>
-                ))}
-            </select>
-
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <ChevronDownIcon />
-            </div>
-        </div>
-        {error && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{error}</p>}
-    </div>
-);
-// ...existing code...
 
     const toggleForm = () => {
         setIsLogin(!isLogin);
-        // Reset form data and errors when switching
         setFormData({
             username: '',
             email: '',
@@ -267,10 +376,10 @@ const Select = ({ id, options = [], placeholder, icon, value, onChange, error })
             age: '',
             city: ''
         });
-        setErrors({}); // Reset errors
+        setErrors({});
     };
 
-    // --- Options for Selects (Unchanged) ---
+    // Options for Selects
     const genderOptions = [
         { value: 'male', label: 'Male' },
         { value: 'female', label: 'Female' },
@@ -351,7 +460,6 @@ const Select = ({ id, options = [], placeholder, icon, value, onChange, error })
         { value: 'visakhapatnam', label: 'Visakhapatnam' },
         { value: 'other', label: 'Other' }
     ];
-    // --- End Options ---
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center p-4 transition-colors duration-300 font-inter antialiase">
@@ -453,9 +561,13 @@ const Select = ({ id, options = [], placeholder, icon, value, onChange, error })
                         
                         {isLogin && (
                             <div className="flex items-center justify-between text-sm">
-                                <a href="#" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowForgotPassword(true)}
+                                    className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300"
+                                >
                                     Forgot your password?
-                                </a>
+                                </button>
                             </div>
                         )}
                         
@@ -478,9 +590,14 @@ const Select = ({ id, options = [], placeholder, icon, value, onChange, error })
                     </p>
                 </div>
             </div>
+
+            {/* Forgot Password Modal */}
+            <ForgotPasswordModal 
+                isOpen={showForgotPassword} 
+                onClose={() => setShowForgotPassword(false)} 
+            />
         </div>
     );
 };
 
 export default AuthPage;
-// ...existing code...
