@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link,useNavigate, useLocation } from 'react-router-dom';
 import B from '../assets/homepageIcons/B.png';
 import C from '../assets/homepageIcons/C.png';
 import D from '../assets/homepageIcons/D.png';
@@ -262,14 +262,14 @@ export default function App() {
     </div>
   </div>
 
-    <div>
+  <div>
   {/* Testimonials Heading */}
   <h2 className="text-2xl lg:text-3xl mx-8 lg:mx-0 font-bold text-center text-gray-800 dark:text-gray-200 my-12">
     See what people say about us<span className='text-blue-300 font-extrabold p-1'>!</span>
   </h2>
 
   {/* Container for the cards */}
-    <div className='flex flex-wrap gap-6 justify-center items-center mb-30'>
+    <div className='flex flex-wrap gap-6 justify-center items-center mb-15'>
       <TestimonialCard 
         name="Abhishek"
         role="User"
@@ -288,6 +288,15 @@ export default function App() {
         imageSrc="https://i.pinimg.com/736x/fd/81/18/fd8118ad8ccfdad677aa27a0a5abee57.jpg"
         quote="This platform gave me the tools and support I needed to navigate a difficult period in my life. I feel more confident and in control than ever before."
         />
+    </div>
+    <div className='flex justify-center flex-col items-center mb-15'>
+      {/* <p>Share your Thoughts</p> */}
+      <Link to="/connect#shareStories" className="group inline-flex items-center gap-2 px-6 py-2 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-blue-100/40 text-blue-800 border border-blue-300/10 dark:bg-gray-800/40 dark:border-gray-700/50 dark:text-white backdrop-blur-md">
+            Share your Thoughts
+            <span className="group-hover:translate-x-1 transition-transform duration-200">
+              →
+            </span>
+      </Link>
     </div>
   </div>
 

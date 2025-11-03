@@ -13,7 +13,7 @@ export default function Footer() {
             { name: "Chatbot", href: "/chatbot#chat" }, 
             { name: "Depression Test", href: "/depression-test#test" }, 
             { name: "Therapists", href: "/therapists" }, 
-            // { name: "Stories", href: "/connect" }, 
+            { name: "Stories", href: "/connect#shareStories" }, 
             { name: "FAQs", href: "/#faqs" }, // <- hash link to FAQ section on home
         ],
         "Support": [ 
