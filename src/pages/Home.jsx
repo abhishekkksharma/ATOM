@@ -10,6 +10,7 @@ import ContactForm from './../components/ContactForm';
 import TestimonialCard from '../components/Testimonials/card';
 import ChatBotPhoneImg from '../assets/homepageIcons/ChatbotPhoneImg.png'
 import FaqComponent from '../components/FAQs';
+import DepressionTestSample from '../components/Home/DepressionTestSample';
 
 
 
@@ -262,7 +263,14 @@ export default function App() {
     </div>
   </div>
 
+  {/* Sample depression test sample */}
   <div>
+
+  </div>
+    <DepressionTestSample/>
+  <div>
+
+
   {/* Testimonials Heading */}
   <h2 className="text-2xl lg:text-3xl mx-8 lg:mx-0 font-bold text-center text-gray-800 dark:text-gray-200 my-12">
     See what people say about us<span className='text-blue-300 font-extrabold p-1'>!</span>
