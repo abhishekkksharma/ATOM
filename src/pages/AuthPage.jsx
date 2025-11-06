@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider';
+import { supabase } from '../lib/supabaseClient';
+
 
 // ============================================
 // REUSABLE INPUT COMPONENT
@@ -344,17 +346,22 @@ const AuthPage = () => {
                 }
                 navigate('/');
             } else {
-                const metadata = {
-                    full_name: formData.username,
-                    gender: formData.gender,
-                    age: formData.age,
-                    city: formData.city
-                };
-                const { error } = await signUp({ email: formData.email, password: formData.password, metadata });
-                if (error) {
-                    throw error;
-                }
-                alert('Sign up successful. Check your email if confirmation is required.');
+                const { data, error } = await supabase.auth.signUp({
+                    email: formData.email,
+                    password: formData.password,
+                    options: {
+                        data: {
+                            full_name: formData.username,
+                            gender: formData.gender,
+                            age: formData.age,
+                            city: formData.city
+                        }
+                    }
+                });
+            
+                if (error) throw error;
+            
+                alert('Sign up successful! Check your email to confirm your account.');
                 navigate('/auth');
                 window.location.reload();
             }

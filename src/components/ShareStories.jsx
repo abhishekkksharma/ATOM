@@ -43,12 +43,13 @@ const AddStoryForm = ({ user, onStoryAdded, onClose }) => {
     const { data, error: insertError } = await supabase
       .from('stories')
       .insert([
-        { 
-          name: name,
-          story: story,
-          username: submitUsername
-        }
-      ])
+        {
+          user_id: user.id,      // add this line 👈
+          name: name,
+          story: story,
+          username: submitUsername
+        }
+      ])
       .select();
 
     setLoading(false);
