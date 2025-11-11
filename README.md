@@ -3,7 +3,7 @@ A comprehensive, user-first mental health platform that unifies essential wellne
 
 # ATOM - Mental Health Ecosystem
 
-![ATOM](../src/assets/logo.png)
+![ATOM](./public/logo.png)
 
 ## 🎯 Overview
 
