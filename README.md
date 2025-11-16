@@ -333,16 +333,6 @@ Purpose: Contact form submissions
 
 ---
 
-## 📊 Statistics
-
-- **User Base**: 165K+ registered users
-- **Therapists**: 50+ verified professionals
-- **Success Stories**: 1000+ shared journeys
-- **Average Rating**: 4.8/5 stars
-- **Response Time**: Instant AI responses, <1 day therapist contact
-
----
-
 ## 🐛 Known Issues & Roadmap
 
 ### Current Limitations
@@ -376,26 +366,6 @@ We welcome contributions! Please:
 - Add comments for complex logic
 - Test on multiple screen sizes
 - Update documentation as needed
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 💌 Support & Contact
-
-### Get Help
-- **Email**: atomconnect@mail.com
-- **Phone**: +91-XXX-XXX-XXXX
-- **Contact Form**: Available on [About page](http://localhost:5173/about)
-
-### Social Media
-- **Twitter**: [@ATOMmental](https://twitter.com)
-- **Instagram**: [@ATOM.wellness](https://instagram.com)
-- **LinkedIn**: [ATOM Team](https://linkedin.com)
 
 ---
 
