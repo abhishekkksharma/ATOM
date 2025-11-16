@@ -104,6 +104,7 @@ const Chatbot = () => {
   const messagesEndRef = useRef(null);
   const recognitionRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const inputRef = useRef(null); // <-- keep focus on input
 
   // Generate or retrieve conversation ID
   useEffect(() => {
@@ -189,6 +190,23 @@ const Chatbot = () => {
       });
     }
   }, [messages]);
+
+  // Keep the message input focused whenever messages, loading, or listening state changes.
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    // Don't steal focus while user is speaking
+    if (!isListening) {
+      try {
+        el.focus();
+        // place caret at the end
+        const len = el.value?.length || 0;
+        el.setSelectionRange(len, len);
+      } catch (err) {
+        // ignore focus errors in some browsers
+      }
+    }
+  }, [messages, isListening, isLoading]);
 
   // Pre-defined frequently asked questions
   const faqs = [
@@ -366,6 +384,7 @@ const Chatbot = () => {
             <div className="flex items-center space-x-2">
               <div className="flex-1 relative">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
