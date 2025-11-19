@@ -51,7 +51,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Assuming you have a comma icon stored in your project assets
 import Comma from '../../assets/Comma/image.png';
 
 const TestimonialCard = ({ name, role, quote }) => {
@@ -90,7 +89,6 @@ const TestimonialCard = ({ name, role, quote }) => {
   );
 };
 
-// PropTypes updated to remove imageSrc
 TestimonialCard.propTypes = {
   name: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,

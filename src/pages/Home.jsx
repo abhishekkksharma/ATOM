@@ -10,7 +10,7 @@ import ContactForm from './../components/ContactForm';
 import TestimonialCard from '../components/Testimonials/card';
 import ChatBotPhoneImg from '../assets/homepageIcons/ChatbotPhoneImg.png'
 import FaqComponent from '../components/FAQs';
-import DepressionTestSample from '../components/Home/DepressionTestSample';
+import StartConversation from '../components/Home/StartConversation';
 
 
 
@@ -45,11 +45,11 @@ export default function App() {
       
         <div className="absolute inset-0 pointer-events-none">
           <svg
-            className="w-full h-full" // Opacity is now controlled by the elements themselves
+            className="w-full h-full" 
             viewBox="0 0 800 400"
             fill="none"
             preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg" // Added for SVG best practice
+            xmlns="http://www.w3.org/2000/svg" 
           >
             {/* Define the radial gradient inside a <defs> block.
               This gradient will be used by the ellipse in dark mode.
@@ -63,11 +63,6 @@ export default function App() {
               </radialGradient>
             </defs>
                     
-            {/* This is the new circular blur.
-              - It's an ellipse centered in the viewbox.
-              - It's hidden by default and only shown in dark mode with "hidden dark:block".
-              - It uses the "blurGradient" we defined above.
-            */}
             <ellipse
               cx="400"
               cy="200"
@@ -80,7 +75,6 @@ export default function App() {
         </div>
 
         
-      {/* Content container remains constrained and centered */}
       <div className="max-w-6xl mx-auto text-center relative mb-20">
         
         {/* Header Content */}
@@ -263,11 +257,10 @@ export default function App() {
     </div>
   </div>
 
-  {/* Sample depression test sample */}
+  {/* StartConversation */}
   <div>
-
+    <StartConversation/>
   </div>
-    <DepressionTestSample/>
   <div>
 
 

@@ -1,4 +1,3 @@
-// ...existing code...
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import send from '../assets/chatbotpage/send.png';
@@ -34,7 +33,6 @@ const Icon = ({ name, className }) => {
 // Component to render text with multiple formatting options
 const FormattedText = ({ text }) => {
   const formatText = (text) => {
-    // Create a comprehensive regex that matches all formatting patterns
     const formatRegex = /(\*\*.*?\*\*|\*(?!\*)[^*]*?\*|~~.*?~~|`[^`]*?`)/g;
     const parts = text.split(formatRegex);
     

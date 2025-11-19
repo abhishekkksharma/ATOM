@@ -2,7 +2,7 @@ import React from 'react'
 import AtomBotImg from "../../assets/homepageIcons/atombot.png"
 import { Link } from 'react-router-dom'
 
-function DepressionTestSample() {
+function StartConversation() {
   return (
     <>
       <div className="flex justify-center items-center flex-col mb-40 space-y-6 text-center">
@@ -49,4 +49,4 @@ function DepressionTestSample() {
   )
 }
 
-export default DepressionTestSample
+export default StartConversation
